@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="corpo-conteudo">
+    <div class="principal">
+        <h3>Lista de Chamados Corretivos RMGV</h3>
+        <div class="cabecalho barra">
+            <a href="{% url 'rmgv_export' di=data_inicial df=data_final %}" class="button_header"> Gerar Excel</a>
+        </div>
+        <div class="resumo ">
+            <fieldset name="Resumo">
+                <legend>SLA de Atendimento</legend>
+                <ul>
+                   <li>Qtd. No Prazo P1:  - {{resumo.atendimento_no_prazo_p1}}</li>
+                    <li>Qtd. Fora do Prazo P1: - {{resumo.atendimento_fora_prazo_p1}}</li>
+                    <li>Qtd. No Prazo P2: - {{resumo.atendimento_no_prazo_p2}}</li>
+                    <li>Qtd. Fora do Prazo P2: - {{resumo.atendimento_fora_prazo_p2}}</li>
+                    <li>Qtd. No Prazo P3: - {{resumo.atendimento_no_prazo_p3}}</li>
+                    <li>Qtd. Fora do Prazo P3: - {{resumo.atendimento_fora_prazo_p3}}</li>
+                </ul>
+            </fieldset>
+            <fieldset name="Resumo">
+                <legend>SLA de solução</legend>
+                <ul>
+                    <li>Qtd. No Prazo P1: - {{resumo.solucao_no_prazo_p1}}</li>
+                    <li>Qtd. Fora do Prazo P1: - {{resumo.solucao_fora_prazo_p1}}</li>
+                    <li>Qtd. No Prazo P2: - {{resumo.solucao_no_prazo_p2}}</li>
+                    <li>Qtd. Fora do Prazo P2: - {{resumo.solucao_fora_prazo_p2}}</li>
+                    <li>Qtd. No Prazo P3: - {{resumo.solucao_no_prazo_p3}}</li>
+                    <li>Qtd. Fora do Prazo P3: - {{resumo.solucao_fora_prazo_p3}}</li>
+                </ul>
+            </fieldset>
+        </div>
+
+        <table class="tabela_95">
+            <thead>
+            <tr>
+                <th>Chave</th>
+                <th>Sla de Atendimento</th>
+                <th>Sla de Solução</th>
+                <th>Local de Atendimento</th>
+                <th>Prioridade</th>
+                <th>Resumo</th>
+                <th>Aberto Por</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for k,v in chamados.items %}
+            <tr>
+                <td>{{v.key}}</td>
+                {% if v.fields.customfield_10062.completedCycles.0.breached == True %}
+                <td>FORA DO PRAZO</td>
+                {% else %}
+                <td>NO PRAZO</td>
+                {% endif %}
+
+                {% if v.fields.customfield_10063.completedCycles.0.breached == True %}
+                <td>FORA DO PRAZO</td>
+                {% else %}
+                <td>NO PRAZO</td>
+                {% endif %}
+
+                <td>{{v.fields.customfield_10060.child.value}}</td>
+                <td>{{v.fields.priority}}</td>
+                <td>{{v.fields.summary}}</td>
+                <td>{{v.fields.reporter.displayName}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

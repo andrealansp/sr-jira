@@ -1,0 +1,40 @@
+<html lang="pt-BR">
+{% load static %}
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="{% static 'styles/login_stprev.css' %}"/>
+    <title>TERMO ELETRÔNICO - PERKONS</title>
+</head>
+<body>
+<form method="post" class="login" autocompete="off">
+    {% csrf_token %}
+    <div id="dov">
+        <img src="{% static 'images/logo1.png' %}" width="200px">
+    </div>
+    <div class="box-user">
+        <input
+                type="text"
+                name="username"
+                id="username"
+                autocomplete="false"
+                required/>
+        <label for="username">Usuário</label>
+    </div>
+    <div class="box-user">
+        <input
+                type="password"
+                name="password"
+                id="password"
+                autocomplete="false"
+                required/>
+        <label for="password">Senha</label>
+    </div>
+    <div class="mensagens">
+        {{ form.non_field_errors }}
+    </div>
+    <button type="submit" class="btn">Acessar</button>
+</form>
+</body>
+</html>

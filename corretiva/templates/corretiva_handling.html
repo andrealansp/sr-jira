@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="corpo-conteudo">
+    <div class="principal">
+        <h1>{{titulo}}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <table class="tabela_50">
+                {{ form.as_table }}
+            </table>
+            <div class="button-wraper">
+                <input type="submit" class="sucesso" value="Enviar">
+                <input type="reset" class="aviso" value="Resetar">
+                <input type="button" class="problema" onclick="window.location.href = '/corretivas';" value="Retornar">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
