@@ -4,6 +4,7 @@ accounts/__pycache__/
 app/__pycache__/
 corretiva/__pycache__/
 preventiva/__pycache__/
+media/xlsx
 
 .env.bak
 .env
