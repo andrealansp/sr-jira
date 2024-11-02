@@ -28,10 +28,9 @@
         <ul class="list">
             <li class="list-item">
                 <a href="{% url 'preventivas' %}" class="link">
-                    <i class='bx bx-home-alt'></i>
-                    <span class="link-name">Início</span>
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="link-name">Resuno</span>
                 </a>
-
             </li>
             <li class="list-item">
                 <a class="link" href="{% url 'preventivas_perkons' %}">
@@ -52,12 +51,6 @@
                 </a>
             </li>
             <li class="list-item">
-                <a class="link" href="{% url 'corretivas' %}">
-                    <i class='bx bxs-wrench'></i>
-                    <span class="link-name">Corretivas</span>
-                </a>
-            </li>
-            <li class="list-item">
                 <form action="{% url 'logout' %}" method="post" id="logout">
                     {% csrf_token %}
                     <a class="link" href="javascript:{}" onclick="document.getElementById('logout').submit();">
@@ -72,7 +65,6 @@
         <div class="cabecalho">
             <h3>Seja bem-vindo, {{user.get_full_name}}.</h3>
         </div>
-
         {% block content %}{% endblock content %}
     </div>
 </main>

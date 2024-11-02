@@ -18,24 +18,28 @@ body {
     background: #c4c2c2;
     margin: 0px auto;
 }
-.resumo fieldset{
+
+.resumo fieldset {
     padding: 10px;
     margin-left: 20px;
 }
 
-.resumo fieldset ul{
+.resumo fieldset ul {
     text-decoration: none;
     list-style: none;
 }
-.resumo fieldset ul li{
+
+.resumo fieldset ul li {
     font-size: 0.8em;
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
     font-size: 12px;
 }
+
 th {
     background-color: #172031;
     color: white;
@@ -52,7 +56,7 @@ td a {
     text-decoration: none;
 }
 
-.helptext{
+.helptext {
     font-size: small;
 }
 
@@ -106,15 +110,18 @@ td a {
 /*Estilos de Containers*/
 
 .corpo-conteudo {
-    margin-top: 20px;
+    margin-top: 10px;
+    padding: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 5px 5px;
+    grid-template-rows: auto auto auto auto;
+    gap: 10px 10px;
     grid-auto-flow: row;
     grid-template-areas:
+    "cabecalho1 cabecalho1"
     "principal principal"
-    "secundario secundario2";
+    "cabecalho2 cabecalho2"
+    "rmgv-dock fora-rmgv-dock";
 }
 
 .principal {
@@ -123,28 +130,9 @@ td a {
     align-self: stretch;
     grid-area: principal;
     padding: 10px;
-    margin: 5px 20px 5px 20px;
     background-color: #ffffff;
     border-radius: 10px;
-    -webkit-box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.78);
-    -moz-box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.78);
-    box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.78);
-}
-
-.corretivas{
-    width: auto;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row-reverse;
-    padding: 20px;
-}
-
-.corretivas div{
-    width: 49%;
-    height: 40vh;
-    border-radius: 10px;
-    border: 1px solid #c4c2c2;
-    padding: 10px;
+    border:1px #747474 solid;
 }
 
 .principal p {
@@ -193,24 +181,32 @@ td a {
     font-size: 1em;
 }
 
-.secundario {
+.rmgv {
+    grid-area: rmgv-dock;
     box-sizing: content-box;
-    justify-self: stretch;
     align-self: stretch;
     padding: 10px;
-    margin: 5px 20px;
     background-color: #ffffff;
     border-radius: 10px;
-    -webkit-box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.78);
-    -moz-box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.78);
-    box-shadow: 0px 0px 21px -7px rgba(0, 0, 0, 0.78);
-    grid-area: secundario;
+    border:1px #747474 solid;
+
 }
 
-.secundario2 {
-    grid-area: secundario2;
+.fora-rmgv {
+    grid-area: fora-rmgv-dock;
+    box-sizing: content-box;
+    align-self: stretch;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border:1px #747474 solid;
 }
-
+.cabecalho1{
+    grid-area: cabecalho1;
+}
+.cabecalho2{
+    grid-area: cabecalho2;
+}
 
 .container {
     display: flex;
@@ -424,6 +420,7 @@ input[type=submit], input[type=reset], input[type=button] {
     height: auto;
     width: auto;
     padding: 5px;
+    margin-left: 10px;
     background-color: #5b6b8b;
     color: white;
     font-weight: bolder;

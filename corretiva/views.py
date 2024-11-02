@@ -118,7 +118,7 @@ class ExportRmgvView(LoginRequiredMixin, View):
             atendimento_breached: str = "NO PRAZO"
             solucao_breached: str = "NO PRAZO"
             if chamado.fields.customfield_10063.completedCycles[0].breached:
-                atendimento_breached = "FORA DO PRAZO"
+                solucao_breached = "FORA DO PRAZO"
 
             if chamado.fields.customfield_10062.completedCycles[0].breached:
                 atendimento_breached = "FORA DO PRAZO"
@@ -156,7 +156,7 @@ class ExportForaDivisa(LoginRequiredMixin, View):
                 atendimento_breached = "FORA DO PRAZO"
 
             if chamado.fields.customfield_10063.completedCycles[0].breached:
-                atendimento_breached = "FORA DO PRAZO"
+                solucao_breached = "FORA DO PRAZO"
 
             lista_chamados.append({
                 "Chave": chamado.key,

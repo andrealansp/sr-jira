@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="corpo-conteudo">
+        <div class="cabecalho1">
+            <h2>Preventivas</h2>
+        </div>
+        <div class="principal">
+            {% if estatistica %}
+                <div>
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th colspan="2">Preventivas RMGV / DIVISA</th>
+                            <th colspan="2">Preventivas FORA DIVISA</th>
+                        </tr>
+                        <tr>
+                            <th>Abertas</th>
+                            <th>Fechada</th>
+                            <th>Abertas</th>
+                            <th>Fechadas</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ estatistica.ABERTOS_RMGV }}</td>
+                            <td>{{ estatistica.FECHADOS_RMGV }}</td>
+                            <td>{{ estatistica.ABERTOS_FORA_DIVISA }}</td>
+                            <td>{{ estatistica.FECHADOS_FORA_DIVISA }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <h5>Os Chamados de Preventivas não foram abertos</h5>
+            {% endif %}
+        </div>
+        <div class="cabecalho2">
+            <h2>Corretivas</h2>
+        </div>
+        <div class="rmgv">
+            <h3>RMGV / DIVISA</h3>
+            <p>Gerar tabela com os chamados de corretivas:
+                <input type="button" value="Acessar" class="info" onclick='window.location.href="/corretivas/rmgv"'>
+            </p>
+        </div>
+        <div class="fora-rmgv">
+            <h3>FORA RMGV</h3>
+            <p>Gerar tabela com os chamados de corretivas:
+                <input type="button" value="Acessar" class="info" onclick='window.location.href="/corretivas/fora_divisa"'>
+            </p>
+        </div>
+    </div>
+{% endblock %}
