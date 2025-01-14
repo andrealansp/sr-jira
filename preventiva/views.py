@@ -1,7 +1,9 @@
 from decouple import config
+import asyncio
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
+from django.views import View
 from django.views.generic import TemplateView, FormView
 
 from app.common.jira_handling import JiraHandling
@@ -20,7 +22,7 @@ class PreventivasView(LoginRequiredMixin, TemplateView):
         context['estatistica'] = self.get_statistics_data()
         return context
 
-    def get_statistics_data(self):
+    async def get_statistics_data(self):
         jira_context = JiraHandling(config("URL"), config("USER_JIRA"), config("API_TOKEN"), config("CAMPOS_PCLS"))
         jira_context.set_jql("perkons-preventivas-pcls-mes")
         return jira_context.get_statistic_preventive()
@@ -120,3 +122,16 @@ class SalasRelatorioTemplateView(TemplateView):
         jira_context = JiraHandling(config("URL"), config("USER_JIRA"), config("API_TOKEN"), config("CAMPOS_SALAS"))
         jira_context.set_jql("perkons-preventivas-salas", self.kwargs['di'], self.kwargs['df'])
         return jira_context.getissues()
+
+
+class EstatisticasPreventivasAPIView(View):
+
+    @staticmethod
+    def get_statistics_data():
+        jira_context = JiraHandling(config("URL"), config("USER_JIRA"), config("API_TOKEN"), config("CAMPOS_PCLS"))
+        jira_context.set_jql("perkons-preventivas-pcls-mes")
+        return jira_context.get_statistic_preventive()
+
+    def get(self, request, *args, **kwargs):
+        estatisticas = self.get_statistics_data()
+        return JsonResponse(estatisticas, safe=False)  # safe=False para serializar objetos não-dicionários

@@ -1,32 +1,36 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %}{% load static %}
 {% block content %}
     <div class="corpo-conteudo">
         <div class="cabecalho1">
-            <h2>Preventivas</h2>
+            <h2>Preventivas -   </h2>
         </div>
         <div class="principal">
             {% if estatistica %}
                 <div>
-
                     <table>
                         <thead>
                         <tr>
                             <th colspan="2">Preventivas RMGV / DIVISA</th>
                             <th colspan="2">Preventivas FORA DIVISA</th>
+                            <th colspan="2">Total de Preventivas</th>
                         </tr>
                         <tr>
                             <th>Abertas</th>
                             <th>Fechada</th>
                             <th>Abertas</th>
                             <th>Fechadas</th>
+                            <th>Chamados Abertos</th>
+                            <th>Chamados Fechados</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>{{ estatistica.ABERTOS_RMGV }}</td>
-                            <td>{{ estatistica.FECHADOS_RMGV }}</td>
-                            <td>{{ estatistica.ABERTOS_FORA_DIVISA }}</td>
-                            <td>{{ estatistica.FECHADOS_FORA_DIVISA }}</td>
+                            <td id="abertosrmgv"></td>
+                            <td id="fechadosrmgv"></td>
+                            <td id="abertosforarmgv"></td>
+                            <td id="fechadosforarmgv"></td>
+                            <td id="abertos"></td>
+                            <td id="fechados"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -47,8 +51,11 @@
         <div class="fora-rmgv">
             <h3>FORA RMGV</h3>
             <p>Gerar tabela com os chamados de corretivas:
-                <input type="button" value="Acessar" class="info" onclick='window.location.href="/corretivas/fora_divisa"'>
+                <input type="button" value="Acessar" class="info"
+                       onclick='window.location.href="/corretivas/fora_divisa"'>
             </p>
         </div>
     </div>
+    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="{% static 'scripts/resumo.js' %}"></script>
 {% endblock %}

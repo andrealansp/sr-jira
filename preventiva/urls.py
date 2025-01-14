@@ -1,10 +1,12 @@
 from django.urls import path
+
 from preventiva.views import (
     PreventivasView,
     PerkonsFormView,
     PerkonsRelatorioTemplateView,
     VelsisFormView,
-    VelsisRelatorioTemplateView, SalasFormView, SalasRelatorioTemplateView)
+    VelsisRelatorioTemplateView, SalasFormView, SalasRelatorioTemplateView,
+    EstatisticasPreventivasAPIView)
 
 urlpatterns = [
     path('', PreventivasView.as_view(), name='preventivas'),
@@ -19,5 +21,6 @@ urlpatterns = [
     path('salas/', SalasFormView.as_view(), name='preventivas_salas'),
     path('salas/relatorio/<str:di>/<str:df>',
          SalasRelatorioTemplateView.as_view(),
-         name="salas_relatorio")
+         name="salas_relatorio"),
+    path('estatisticas', EstatisticasPreventivasAPIView.as_view(), name='resume')
 ]

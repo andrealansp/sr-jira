@@ -1,4 +1,3 @@
-import os
 from pprint import pprint
 from typing import cast
 
@@ -8,8 +7,6 @@ from decouple import config
 from jira import JIRA
 from jira.client import ResultList
 from jira.resources import Issue
-
-from app.settings import MEDIA_ROOT
 
 
 class JiraHandling:
@@ -64,9 +61,10 @@ class JiraHandling:
 
             case "velsis-preventivas-balancas":
                 self.__jql = f"""created >= {dt_inicial} AND created <= {dt_final} AND project = CIES 
-                AND issuetype = "Preventiva Balança" AND status = Resolved AND creator in
-                (qm:ba8a45d0-c8a8-4107-98fe-bfc59d6bde38:70e33655-0037-42f7-94ef-d8503e158e39) 
-                ORDER BY created ASC, cf[10060] ASC, creator DESC, issuetype ASC, timespent DESC, cf[10061] DESC"""
+                AND issuetype = "Preventiva Balança" AND status = Resolved AND 
+                reporter = 712020:3f4d8c9e-ec2e-4d7a-afaa-9655498b3d4b ORDER BY cf[10135] DESC, cf[10121] DESC, 
+                cf[10130] ASC, cf[10124] DESC, created ASC, cf[10060] ASC, creator DESC, issuetype ASC, 
+                timespent DESC, cf[10061] DESC"""
 
             case "perkons-preventivas-pcls-mes":
                 self.__jql = """assignee in (currentUser()) AND project = CIES And created >= startOfMonth() 
@@ -151,13 +149,16 @@ class JiraHandling:
                 "solucao_fora_prazo_p2": len(df.loc[(df["prioridade"] == "Prioridade 2") & (df["solucao"] == True)]),
                 "solucao_no_prazo_p3": len(df.loc[(df["prioridade"] == "Prioridade 3") & (df["solucao"] == False)]),
                 "solucao_fora_prazo_p3": len(df.loc[(df["prioridade"] == "Prioridade 3") & (df["solucao"] == True)]),
-                "atendimento_no_prazo_p1": len(df.loc[(df["prioridade"] == "Prioridade 1") & (df["atendimento"] == False)]),
+                "atendimento_no_prazo_p1": len(
+                    df.loc[(df["prioridade"] == "Prioridade 1") & (df["atendimento"] == False)]),
                 "atendimento_fora_prazo_p1": len(
                     df.loc[(df["prioridade"] == "Prioridade 1") & (df["atendimento"] == True)]),
-                "atendimento_no_prazo_p2": len(df.loc[(df["prioridade"] == "Prioridade 2") & (df["atendimento"] == False)]),
+                "atendimento_no_prazo_p2": len(
+                    df.loc[(df["prioridade"] == "Prioridade 2") & (df["atendimento"] == False)]),
                 "atendimento_fora_prazo_p2": len(
                     df.loc[(df["prioridade"] == "Prioridade 2") & (df["atendimento"] == True)]),
-                "atendimento_no_prazo_p3": len(df.loc[(df["prioridade"] == "Prioridade 3") & (df["atendimento"] == False)]),
+                "atendimento_no_prazo_p3": len(
+                    df.loc[(df["prioridade"] == "Prioridade 3") & (df["atendimento"] == False)]),
                 "atendimento_fora_prazo_p3": len(
                     df.loc[(df["prioridade"] == "Prioridade 3") & (df["atendimento"] == True)]),
             }
