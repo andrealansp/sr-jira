@@ -1,20 +1,21 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 {% block content %}
 
-<div class="corpo-conteudo">
-    <div class="principal">
-        <h1>{{titulo}}</h1>
-        <form method="post">
-            {% csrf_token %}
-            <table class="tabela_50">
-                {{ form.as_table }}
-            </table>
-            <div class="button-wraper">
-                <input type="submit" class="sucesso" value="Enviar">
-                <input type="reset" class="aviso" value="Resetar">
-                <input type="button" class="problema" onclick="window.location.href = '/preventivas';" value="Retornar">
-            </div>
-        </form>
-    </div>
+<div class="col-8 mt-5">
+	<div class="principal p-5">
+		<h1>{{titulo}}</h1>
+		<form method="post">
+			{% csrf_token %}
+			<table class="table table-sm table-striped border boder-1">
+				{{ form.as_table }}
+			</table>
+			<div class="button-wraper">
+				{% bootstrap_button button_type="submit" button_class="btn-primary" size="sm" content="Enviar" %} 
+				{% bootstrap_button button_type="reset" button_class="btn-danger" size="sm" content="Cancelar" %} 
+				{% bootstrap_button button_type="link" href="/preventivas" button_class="btn-warning" size="sm" content="Retornar" %}
+			</div>
+		</form>
+	</div>
 </div>
 {% endblock %}

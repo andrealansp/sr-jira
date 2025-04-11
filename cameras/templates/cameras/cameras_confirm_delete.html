@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block content %}
+<div class="container-content expandido" id="conteudo">
+    <h2>
+    Tem certeza que deseja apagar o termo {{object.ponto}} - {{object.porta}}
+    </h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Sim, tenho certeza" class="sucesso"/>
+        <input class="problema" type="reset" value="Não quero apagar mais"
+               onClick="history.back()" />
+    </form>
+</div>
+
+
+{% endblock content %}

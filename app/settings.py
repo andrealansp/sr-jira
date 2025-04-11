@@ -11,10 +11,13 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 import ldap
-from decouple import config
+from dotenv import load_dotenv
 from django_auth_ldap.config import LDAPSearch, ActiveDirectoryGroupType
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -33,15 +36,17 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'accounts',
-    'corretiva',
-    'preventiva'
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "accounts",
+    "django_bootstrap5",
+    "corretiva",
+    "cameras",
+    "preventiva",
 ]
 
 MIDDLEWARE = [
@@ -78,9 +83,13 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("BD_NAME"),
+        "USER": os.getenv("BD_USER"),
+        "PASSWORD": os.getenv("BD_PASSWORD"),
+        "HOST": os.getenv("BD_HOST"),
+        "PORT": os.getenv("BD_HOST_PORT"),
     }
 }
 
@@ -135,9 +144,9 @@ AUTHENTICATION_BACKENDS = (
     "django_auth_ldap.backend.LDAPBackend",
     "django.contrib.auth.backends.ModelBackend",
 )
-AUTH_LDAP_SERVER_URI = config('LDAP_SERVER')
-AUTH_LDAP_BIND_DN = config("LDAP_USER_BIND")
-AUTH_LDAP_BIND_PASSWORD = config("LDAP_USER_BIND_PASSWORD")
+AUTH_LDAP_SERVER_URI = os.getenv("LDAP_SERVER")
+AUTH_LDAP_BIND_DN = os.getenv("LDAP_USER_BIND")
+AUTH_LDAP_BIND_PASSWORD = os.getenv("LDAP_USER_BIND_PASSWORD")
 AUTH_LDAP_USER_SEARCH = LDAPSearch(
     "ou=Area_Tecnica,dc=perkons,dc=com",  # LDAP search base
     ldap.SCOPE_SUBTREE,  # Scope

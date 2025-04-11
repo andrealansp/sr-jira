@@ -1,7 +1,7 @@
 import os
 
 import pandas as pd
-from decouple import config
+from dotenv import load_dotenv
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, FileResponse
 from django.urls import reverse
@@ -11,6 +11,7 @@ from app.common.jira_handling import JiraHandling
 from app.settings import MEDIA_ROOT
 from corretiva.forms import CorretivaForm
 
+load_dotenv()
 
 class CorretivaTemplateView(LoginRequiredMixin, TemplateView):
     login_url = '/accounts/login/'
@@ -67,14 +68,22 @@ class RmgvListView(LoginRequiredMixin, TemplateView):
         return context
 
     def get_tickets(self):
-        jira_context = JiraHandling(config("URL"), config("USER_JIRA"), config("API_TOKEN"),
-                                    config("CAMPOS_CORRETIVAS"))
+        jira_context = JiraHandling(
+            os.getenv("URL"),
+            os.getenv("USER_JIRA"),
+            os.getenv("API_TOKEN"),
+            os.getenv("CAMPOS_CORRETIVAS"),
+        )
         jira_context.set_jql("perkons-corretivas-rmgv", self.kwargs['di'], self.kwargs['df'])
         return jira_context.getissues()
 
     def get_statistics_corrective(self):
-        jira_context = JiraHandling(config("URL"), config("USER_JIRA"), config("API_TOKEN"),
-                                    config("CAMPOS_CORRETIVAS"))
+        jira_context = JiraHandling(
+            os.getenv("URL"),
+            os.getenv("USER_JIRA"),
+            os.getenv("API_TOKEN"),
+            os.getenv("CAMPOS_CORRETIVAS"),
+        )
         jira_context.set_jql("perkons-corretivas-rmgv", self.kwargs['di'], self.kwargs['df'])
         return jira_context.get_statistic_corrective()
 
@@ -92,14 +101,22 @@ class ForaDivisaListView(LoginRequiredMixin, TemplateView):
         return context
 
     def get_tickets(self):
-        jira_context = JiraHandling(config("URL"), config("USER_JIRA"), config("API_TOKEN"),
-                                    config("CAMPOS_CORRETIVAS"))
+        jira_context = JiraHandling(
+            os.getenv("URL"),
+            os.getenv("USER_JIRA"),
+            os.getenv("API_TOKEN"),
+            os.getenv("CAMPOS_CORRETIVAS"),
+        )
         jira_context.set_jql("perkons-corretivas-fora-divisa", self.kwargs['di'], self.kwargs['df'])
         return jira_context.getissues()
 
     def get_statistics_corrective(self):
-        jira_context = JiraHandling(config("URL"), config("USER_JIRA"), config("API_TOKEN"),
-                                    config("CAMPOS_CORRETIVAS"))
+        jira_context = JiraHandling(
+            os.getenv("URL"),
+            os.getenv("USER_JIRA"),
+            os.getenv("API_TOKEN"),
+            os.getenv("CAMPOS_CORRETIVAS"),
+        )
         jira_context.set_jql("perkons-corretivas-fora-divisa", self.kwargs['di'], self.kwargs['df'])
         return jira_context.get_statistic_corrective()
 
@@ -108,8 +125,12 @@ class ExportRmgvView(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request, *args, **kwargs):
-        jira_context = JiraHandling(config("URL"), config("USER_JIRA"), config("API_TOKEN"),
-                                    config("CAMPOS_CORRETIVAS"))
+        jira_context = JiraHandling(
+            os.getenv("URL"),
+            os.getenv("USER_JIRA"),
+            os.getenv("API_TOKEN"),
+            os.getenv("CAMPOS_CORRETIVAS"),
+        )
         jira_context.set_jql('perkons-corretivas-rmgv', self.kwargs['di'], self.kwargs['df'])
         lista = jira_context.getissues()
         lista_chamados = []
@@ -143,8 +164,12 @@ class ExportForaDivisa(LoginRequiredMixin, View):
     login_url = '/accounts/login/'
 
     def get(self, request, *args, **kwargs):
-        jira_context = JiraHandling(config("URL"), config("USER_JIRA"), config("API_TOKEN"),
-                                    config("CAMPOS_CORRETIVAS"))
+        jira_context = JiraHandling(
+            os.getenv("URL"),
+            os.getenv("USER_JIRA"),
+            os.getenv("API_TOKEN"),
+            os.getenv("CAMPOS_CORRETIVAS"),
+        )
         jira_context.set_jql('perkons-corretivas-fora-divisa', self.kwargs['di'], self.kwargs['df'])
         lista = jira_context.getissues()
         lista_chamados = []

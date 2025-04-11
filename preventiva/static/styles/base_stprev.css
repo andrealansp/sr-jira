@@ -6,6 +6,7 @@
 
 body {
     background: #ededed;
+    font-size: .9rem;
 }
 
 .resumo {
@@ -31,29 +32,6 @@ body {
 
 .resumo fieldset ul li {
     font-size: 0.8em;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-    font-size: 12px;
-}
-
-th {
-    background-color: #172031;
-    color: white;
-    padding: 5px;
-    border: black solid 1px;
-}
-
-td {
-    border: 1px solid black;
-    padding: 5px;
-}
-
-td a {
-    text-decoration: none;
 }
 
 .helptext {
@@ -133,6 +111,7 @@ td a {
     background-color: #ffffff;
     border-radius: 10px;
     border:1px #747474 solid;
+    font-size: 0.7em;
 }
 
 .principal p {
@@ -144,41 +123,8 @@ td a {
     color: #172031;
     padding: 20px 0;
 }
-
-.principal table {
-    border: solid black 1px;
-    border-radius: 6px;
-    margin: 20px auto;
-
-}
-
-.principal table th {
-    background-color: #c4c2c2;
-    font-size: 1.2em;
-    color: black;
-}
-
 .principal input[type=date] {
     width: 60%;
-}
-
-.tabela_95 {
-    width: 95%;
-    font-size: 0.8em;
-}
-
-.tabela_95 th, td {
-    width: fit-content;
-}
-
-.tabela_50 {
-    width: 50%;
-    font-size: 0.9em;
-}
-
-.tabela_50 th {
-    width: fit-content;
-    font-size: 1em;
 }
 
 .rmgv {

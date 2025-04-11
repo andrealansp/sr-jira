@@ -33,33 +33,6 @@ body {
     font-size: 0.8em;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-    font-size: 12px;
-}
-
-th {
-    background-color: #172031;
-    color: white;
-    padding: 5px;
-    border: black solid 1px;
-}
-
-td {
-    border: 1px solid black;
-    padding: 5px;
-}
-
-td a {
-    text-decoration: none;
-}
-
-.helptext {
-    font-size: small;
-}
-
 /*Icones das tabelas*/
 
 .editarbtn {
@@ -145,40 +118,8 @@ td a {
     padding: 20px 0;
 }
 
-.principal table {
-    border: solid black 1px;
-    border-radius: 6px;
-    margin: 20px auto;
-
-}
-
-.principal table th {
-    background-color: #c4c2c2;
-    font-size: 1.2em;
-    color: black;
-}
-
 .principal input[type=date] {
     width: 60%;
-}
-
-.tabela_95 {
-    width: 95%;
-    font-size: 0.8em;
-}
-
-.tabela_95 th, td {
-    width: fit-content;
-}
-
-.tabela_50 {
-    width: 50%;
-    font-size: 0.9em;
-}
-
-.tabela_50 th {
-    width: fit-content;
-    font-size: 1em;
 }
 
 .rmgv {
@@ -206,16 +147,6 @@ td a {
 }
 .cabecalho2{
     grid-area: cabecalho2;
-}
-
-.container {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: end;
-}
-
-.container-content {
-    width: 78%;
 }
 
 .expandido {

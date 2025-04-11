@@ -1,5 +1,5 @@
-from decouple import config
-import asyncio
+import os
+from dotenv import load_dotenv
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
@@ -11,7 +11,7 @@ from preventiva.forms import PreventivaForm
 import logging
 
 logger = logging.getLogger("preventivas")
-
+load_dotenv()
 
 class PreventivasView(LoginRequiredMixin, TemplateView):
     login_url = '/accounts/login/'
@@ -23,7 +23,12 @@ class PreventivasView(LoginRequiredMixin, TemplateView):
         return context
 
     async def get_statistics_data(self):
-        jira_context = JiraHandling(config("URL"), config("USER_JIRA"), config("API_TOKEN"), config("CAMPOS_PCLS"))
+        jira_context = JiraHandling(
+            os.getenv("URL"),
+            os.getenv("USER_JIRA"),
+            os.getenv("API_TOKEN"),
+            os.getenv("CAMPOS_PCLS"),
+        )
         jira_context.set_jql("perkons-preventivas-pcls-mes")
         return jira_context.get_statistic_preventive()
 
@@ -55,7 +60,12 @@ class PerkonsRelatorioTemplateView(TemplateView):
         return context
 
     def get_issues_jira(self):
-        jira_context = JiraHandling(config("URL"), config("USER_JIRA"), config("API_TOKEN"), config("CAMPOS_PCLS"))
+        jira_context = JiraHandling(
+            os.getenv("URL"),
+            os.getenv("USER_JIRA"),
+            os.getenv("API_TOKEN"),
+            os.getenv("CAMPOS_PCLS"),
+        )
         jira_context.set_jql("perkons-preventivas-pcls", self.kwargs['di'], self.kwargs['df'])
         return jira_context.getissues()
 
@@ -87,7 +97,12 @@ class VelsisRelatorioTemplateView(TemplateView):
         return context
 
     def get_issues_jira(self):
-        jira_context = JiraHandling(config("URL"), config("USER_JIRA"), config("API_TOKEN"), config("CAMPOS_VELSIS"))
+        jira_context = JiraHandling(
+            os.getenv("URL"),
+            os.getenv("USER_JIRA"),
+            os.getenv("API_TOKEN"),
+            os.getenv("CAMPOS_VELSIS"),
+        )
         jira_context.set_jql("velsis-preventivas-balancas", self.kwargs['di'], self.kwargs['df'])
         return jira_context.getissues()
 
@@ -119,7 +134,12 @@ class SalasRelatorioTemplateView(TemplateView):
         return context
 
     def get_issues_jira(self):
-        jira_context = JiraHandling(config("URL"), config("USER_JIRA"), config("API_TOKEN"), config("CAMPOS_SALAS"))
+        jira_context = JiraHandling(
+            os.getenv("URL"),
+            os.getenv("USER_JIRA"),
+            os.getenv("API_TOKEN"),
+            os.getenv("CAMPOS_SALAS"),
+        )
         jira_context.set_jql("perkons-preventivas-salas", self.kwargs['di'], self.kwargs['df'])
         return jira_context.getissues()
 
@@ -128,7 +148,12 @@ class EstatisticasPreventivasAPIView(View):
 
     @staticmethod
     def get_statistics_data():
-        jira_context = JiraHandling(config("URL"), config("USER_JIRA"), config("API_TOKEN"), config("CAMPOS_PCLS"))
+        jira_context = JiraHandling(
+            os.getenv("URL"),
+            os.getenv("USER_JIRA"),
+            os.getenv("API_TOKEN"),
+            os.getenv("CAMPOS_PCLS"),
+        )
         jira_context.set_jql("perkons-preventivas-pcls-mes")
         return jira_context.get_statistic_preventive()
 

@@ -19,13 +19,15 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include
 from django.urls import path
-from django.contrib.auth import urls
 from django.views.generic import RedirectView
 
 urlpatterns = [
-                  path("", RedirectView.as_view(url='/accounts/login', permanent=False), name="index"),
-                  path('admin/', admin.site.urls),
-                  path('accounts/', include("django.contrib.auth.urls")),
-                  path('preventivas/', include('preventiva.urls')),
-                  path('corretivas/', include('corretiva.urls')),
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path(
+        "", RedirectView.as_view(url="/accounts/login", permanent=False), name="index"
+    ),
+    path("admin/", admin.site.urls),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("preventivas/", include("preventiva.urls")),
+    path("corretivas/", include("corretiva.urls")),
+    path("cameras/", include("cameras.urls")),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

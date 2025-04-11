@@ -1,13 +1,15 @@
+import os
 from pprint import pprint
 from typing import cast
 
 import jirapt
 import pandas as pd
-from decouple import config
+from dotenv import load_dotenv
 from jira import JIRA
 from jira.client import ResultList
 from jira.resources import Issue
 
+load_dotenv()
 
 class JiraHandling:
     def __init__(self, url: str, username: str, password: str, fields: str = None):
@@ -16,7 +18,9 @@ class JiraHandling:
         self.__username = username
         self.__password = password
         self.__fields = fields
-        self.__jira = JIRA(server=config("BASE_URL"), basic_auth=(self.__username, self.__password))
+        self.__jira = JIRA(
+            server=os.getenv("BASE_URL"), basic_auth=(self.__username, self.__password)
+        )
 
     def set_jql(self, escolha: str, dt_inicial: str = None, dt_final: str = None):
         """
@@ -78,7 +82,10 @@ class JiraHandling:
         :param fields: Lista de Campos para retorno do json
         :return: ResultList (Tipo personalizado da classe Jira)
         """
-        issues = cast(ResultList[Issue], jirapt.search_issues(self.__jira, self.__jql, 4, fields=fields))
+        issues = cast(
+            ResultList[Issue],
+            jirapt.search_issues(self.__jira, self.__jql, 4, fields=fields),
+        )
         return issues
 
     def getissues(self):
@@ -104,23 +111,42 @@ class JiraHandling:
         issues = self.getissues()
         list_preventive: list = []
         for issue in issues.values():
-            list_preventive.append({
-                "key": issue.key,
-                "status": issue.fields.customfield_10010.currentStatus.status,
-                "regiao": issue.fields.customfield_10060.value
-            })
+            list_preventive.append(
+                {
+                    "key": issue.key,
+                    "status": issue.fields.customfield_10010.currentStatus.status,
+                    "regiao": issue.fields.customfield_10060.value,
+                }
+            )
 
         if list_preventive:
             df = pd.DataFrame(list_preventive)
 
             dados_estatisticos: dict = {
-                "ABERTOS_RMGV": len(df.loc[(df["regiao"] == "RMGV/Divisa") & (df["status"] == "Work in progress")]),
+                "ABERTOS_RMGV": len(
+                    df.loc[
+                        (df["regiao"] == "RMGV/Divisa")
+                        & (df["status"] == "Work in progress")
+                    ]
+                ),
                 "ABERTOS_FORA_DIVISA": len(
-                    df.loc[(df["regiao"] == "Fora Divisa") & (df["status"] == "Work in progress")]),
-                "FECHADOS_RMGV": len(df.loc[(df["regiao"] == "RMGV/Divisa") & (df["status"] == "Resolvido")]),
-                "FECHADOS_FORA_DIVISA": len(df.loc[(df["regiao"] == "Fora Divisa") & (df["status"] == "Resolvido")]),
+                    df.loc[
+                        (df["regiao"] == "Fora Divisa")
+                        & (df["status"] == "Work in progress")
+                    ]
+                ),
+                "FECHADOS_RMGV": len(
+                    df.loc[
+                        (df["regiao"] == "RMGV/Divisa") & (df["status"] == "Resolvido")
+                    ]
+                ),
+                "FECHADOS_FORA_DIVISA": len(
+                    df.loc[
+                        (df["regiao"] == "Fora Divisa") & (df["status"] == "Resolvido")
+                    ]
+                ),
                 "CHAMADOS_ABERTOS": len(df.loc[df["status"] == "Work in progress"]),
-                "TOTAL_DE_CHAMADOS": len(df["status"])
+                "TOTAL_DE_CHAMADOS": len(df["status"]),
             }
 
             return dados_estatisticos
@@ -131,36 +157,90 @@ class JiraHandling:
         issues = self.getissues()
         list_corrective: list = []
         for corrective in issues.values():
-            list_corrective.append({
-                "chave": corrective.key,
-                "prioridade": corrective.fields.priority,
-                "atendimento": corrective.fields.customfield_10062.completedCycles[0].breached,
-                "solucao": corrective.fields.customfield_10063.completedCycles[0].breached
-            })
+            list_corrective.append(
+                {
+                    "chave": corrective.key,
+                    "prioridade": corrective.fields.priority,
+                    "atendimento": corrective.fields.customfield_10062.completedCycles[
+                        0
+                    ].breached,
+                    "solucao": corrective.fields.customfield_10063.completedCycles[
+                        0
+                    ].breached,
+                }
+            )
 
         if list_corrective:
             df = pd.DataFrame(list_corrective)
-            df['prioridade'] = df['prioridade'].astype(str)
+            df["prioridade"] = df["prioridade"].astype(str)
 
             dados_estatisticos: dict = {
-                "solucao_no_prazo_p1": len(df.loc[(df["prioridade"] == "Prioridade 1") & (df["solucao"] == False)]),
-                "solucao_fora_prazo_p1": len(df.loc[(df["prioridade"] == "Prioridade 1") & (df["solucao"] == True)]),
-                "solucao_no_prazo_p2": len(df.loc[(df["prioridade"] == "Prioridade 2") & (df["solucao"] == False)]),
-                "solucao_fora_prazo_p2": len(df.loc[(df["prioridade"] == "Prioridade 2") & (df["solucao"] == True)]),
-                "solucao_no_prazo_p3": len(df.loc[(df["prioridade"] == "Prioridade 3") & (df["solucao"] == False)]),
-                "solucao_fora_prazo_p3": len(df.loc[(df["prioridade"] == "Prioridade 3") & (df["solucao"] == True)]),
+                "solucao_no_prazo_p1": len(
+                    df.loc[
+                        (df["prioridade"] == "Prioridade 1") & (df["solucao"] == False)
+                    ]
+                ),
+                "solucao_fora_prazo_p1": len(
+                    df.loc[
+                        (df["prioridade"] == "Prioridade 1") & (df["solucao"] == True)
+                    ]
+                ),
+                "solucao_no_prazo_p2": len(
+                    df.loc[
+                        (df["prioridade"] == "Prioridade 2") & (df["solucao"] == False)
+                    ]
+                ),
+                "solucao_fora_prazo_p2": len(
+                    df.loc[
+                        (df["prioridade"] == "Prioridade 2") & (df["solucao"] == True)
+                    ]
+                ),
+                "solucao_no_prazo_p3": len(
+                    df.loc[
+                        (df["prioridade"] == "Prioridade 3") & (df["solucao"] == False)
+                    ]
+                ),
+                "solucao_fora_prazo_p3": len(
+                    df.loc[
+                        (df["prioridade"] == "Prioridade 3") & (df["solucao"] == True)
+                    ]
+                ),
                 "atendimento_no_prazo_p1": len(
-                    df.loc[(df["prioridade"] == "Prioridade 1") & (df["atendimento"] == False)]),
+                    df.loc[
+                        (df["prioridade"] == "Prioridade 1")
+                        & (df["atendimento"] == False)
+                    ]
+                ),
                 "atendimento_fora_prazo_p1": len(
-                    df.loc[(df["prioridade"] == "Prioridade 1") & (df["atendimento"] == True)]),
+                    df.loc[
+                        (df["prioridade"] == "Prioridade 1")
+                        & (df["atendimento"] == True)
+                    ]
+                ),
                 "atendimento_no_prazo_p2": len(
-                    df.loc[(df["prioridade"] == "Prioridade 2") & (df["atendimento"] == False)]),
+                    df.loc[
+                        (df["prioridade"] == "Prioridade 2")
+                        & (df["atendimento"] == False)
+                    ]
+                ),
                 "atendimento_fora_prazo_p2": len(
-                    df.loc[(df["prioridade"] == "Prioridade 2") & (df["atendimento"] == True)]),
+                    df.loc[
+                        (df["prioridade"] == "Prioridade 2")
+                        & (df["atendimento"] == True)
+                    ]
+                ),
                 "atendimento_no_prazo_p3": len(
-                    df.loc[(df["prioridade"] == "Prioridade 3") & (df["atendimento"] == False)]),
+                    df.loc[
+                        (df["prioridade"] == "Prioridade 3")
+                        & (df["atendimento"] == False)
+                    ]
+                ),
                 "atendimento_fora_prazo_p3": len(
-                    df.loc[(df["prioridade"] == "Prioridade 3") & (df["atendimento"] == True)]),
+                    df.loc[
+                        (df["prioridade"] == "Prioridade 3")
+                        & (df["atendimento"] == True)
+                    ]
+                ),
             }
             return dados_estatisticos
         else:
@@ -168,9 +248,34 @@ class JiraHandling:
 
 
 if __name__ == "__main__":
-    jira_values = JiraHandling(config("URL"), config("USER_JIRA"), config("API_TOKEN"), config("CAMPOS_VELSIS"))
-    jira_values.set_jql("velsis-preventivas-balancas", "2024-07-01", "2024-08-01")
-    chamados = jira_values.getissues()
+    import os
 
-    for issue in chamados.values():
-        pprint(issue.raw.get('created'))
+    options = {"server": os.getenv("BASE_URL")}
+    print(os.getenv("USER_JIRA"), os.getenv("API_TOKEN"))
+    jira = JIRA(options, basic_auth=(os.getenv("USER_JIRA"), os.getenv("API_TOKEN")))
+
+    jira.issue("CIES-15211")
+    print(jira.fields.__dict__)
+
+    # jql_query = """assignee in (currentUser()) AND project = CIES AND issuetype = "Preventiva PCL" AND\
+    #       status = Resolved AND resolved >= 2025-03-01 AND resolved\
+    #       <= 2025-04-01 ORDER BY created ASC, creator DESC, issuetype ASC, timespent DESC"""
+    # all_issues = []
+    # start_at = 0
+    # max_results = 100  # Número máximo de resultados por página (padrão e máximo da API REST do Jira)
+
+    # while True:
+    #     issues = jira.search_issues(jql_query, startAt=start_at, maxResults=max_results)
+    #     all_issues.extend(issues.iterable)  # A lista de issues está em 'iterable'
+    #     total = issues.total
+    #     start_at += len(issues.iterable)
+
+    #     if start_at >= total:
+    #         break
+
+    # print(f"Total de issues encontradas: {len(all_issues)}")
+    # # Agora a lista 'all_issues' contém todos os issues retornados pela sua JQL
+    # # Você pode processar os dados como desejar
+    # # Exemplo: imprimir os summaries dos issues
+    # for issue in all_issues:
+    #     print(issue.key, issue.fields.summary)

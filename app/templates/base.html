@@ -1,73 +1,92 @@
 <!DOCTYPE html>
-{% load static %}
+{% load static %} {% load django_bootstrap5 %}
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
-    <title>Extração de Preventivas</title>
-    <link rel="stylesheet" href="{% static 'styles/base_stprev.css' %}">
-    <link rel="stylesheet" href="{% static 'styles/fonts_stprev.css' %}">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-          rel="stylesheet">
-
-</head>
-<body >
-<main class="container inter-400">
-    <nav class="sidebar active">
-        <div class="logo-menu">
-            <h2 class="logo">
-                <img src="{% static 'images/logo1.png' %}" width="90px">
-            </h2>
-            <i class="bx bx-menu toggle-btn"></i>
-        </div>
-        <ul class="list">
-            <li class="list-item">
-                <a href="{% url 'preventivas' %}" class="link">
-                    <i class='bx bxs-dashboard'></i>
-                    <span class="link-name">Resuno</span>
-                </a>
-            </li>
-            <li class="list-item">
-                <a class="link" href="{% url 'preventivas_perkons' %}">
-                    <i class='bx bx-camera-home'></i>
-                    <span class="link-name">Pontos de Coleta</span>
-                </a>
-            </li>
-            <li class="list-item">
-                <a class="link" href="{% url 'preventivas_velsis' %}">
-                    <i class='bx bx-flag'></i>
-                    <span class="link-name">Pontos de Balança</span>
-                </a>
-            </li>
-            <li class="list-item">
-                <a class="link" href="{% url 'preventivas_salas' %}">
-                    <i class='bx bxs-buildings'></i>
-                    <span class="link-name">Salas de Operações</span>
-                </a>
-            </li>
-            <li class="list-item">
-                <form action="{% url 'logout' %}" method="post" id="logout">
-                    {% csrf_token %}
-                    <a class="link" href="javascript:{}" onclick="document.getElementById('logout').submit();">
-                        <i class='bx bx-log-out'></i>
-                        <span class="link-name">Sair do Sistema</span>
-                    </a>
-                </form>
-            </li>
-        </ul>
-    </nav>
-    <div class="container-content" id="conteudo">
-        <div class="cabecalho">
-            <h3>Seja bem-vindo, {{user.get_full_name}}.</h3>
-        </div>
-        {% block content %}{% endblock content %}
-    </div>
-</main>
-<script src="{% static 'scripts/base.js' %}"></script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="icon"
+			type="image/x-icon"
+			href="{% static 'images/favicon.ico' %}" />
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+		<title>Extração de Preventivas</title>
+		{% bootstrap_css %}
+		<link rel="stylesheet" href={% static "styles/base_stprev.css" %}>
+	</head>
+	<body>
+		<main class="container-fluid inter-400">
+			<div class="row">
+				<nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #172031;>
+					<div class="container-fluid">
+						<a class="navbar-brand px-3" href="#">
+      					<img src={% static "images/logo2.png" %} height="64px" width="64px"
+	 					 alt="" width="30" height="24" class="d-inline-block align-text-top">
+   						 </a>
+						<button
+							class="navbar-toggler"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#navbarSupportedContent"
+							aria-controls="navbarSupportedContent"
+							aria-expanded="false"
+							aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+							<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href={% url "preventivas" %}
+										>Resumo</a>
+								</li>
+								<li class="nav-item dropdown">
+									<a
+										class="nav-link dropdown-toggle"
+										href="#"
+										role="button"
+										data-bs-toggle="dropdown"
+										aria-expanded="false">
+										Preventiva
+									</a>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item" href={% url "preventivas_perkons" %}>Ponto de Coleta</a></li>
+										<li>
+											<a class="dropdown-item" href={% url "preventivas_velsis" %}>Ponto de Balança</a>
+										</li>
+										<li>
+											<a class="dropdown-item" href={% url "preventivas_salas" %}>Salas de Operação</a>
+										</li>
+									</ul>
+								</li>
+								<li class="nav-item dropdown">
+									<a
+										class="nav-link dropdown-toggle"
+										href="#"
+										role="button"
+										data-bs-toggle="dropdown"
+										aria-expanded="false">
+										Câmeras
+									</a>
+									<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href={% url "cameras:list" %}>Lista de Câmeras</a></li>
+										<li>
+										<li><a class="dropdown-item" href={% url "cameras:create" %}>Cadastro de Câmeras</a></li>
+									</ul>
+								</li>
+							</ul> 
+							<form class="d-flex px-3" action="{% url 'logout' %}" method="post" id="logout">
+									{% csrf_token %}
+									<a class="btn btn-primary" href="javascript:{}" onclick="document.getElementById('logout').submit();">
+			                        <span class="link-name">Sair do Sistema</span>
+            				        </a>
+                					</form>
+						</div>
+					</div>
+				</nav>
+			</div>
+			<div class="row justify-content-center">{% block content %}{% endblock content %}</div>
+		</main>
+		{% bootstrap_javascript %}
+		<script src="{% static 'scripts/base.js' %}"></script>
+	</body>
 </html>

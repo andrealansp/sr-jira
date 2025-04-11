@@ -1,39 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="corpo-conteudo">
+<div class="col-11 m-3 p-3">
     <div class="principal">
         <h3>Lista de Chamados Corretivos FORA DIVISA</h3>
-        <div class="cabecalho barra">
-            <a href="{% url 'fora_divisa_export' di=data_inicial df=data_final %}" class="button_header"> Gerar
-                Excel</a>
-        </div>
+        <nav class="navbar navbar-dark navbar-expand-lg bg-black">
+			<div class="container-fluid">
+				<div class="navbar-nav" >
+					<a class="nav-link" href="{% url 'preventivas' %}">Retornar</a>
+					<a
+						class="nav-link"
+						href="{% url 'fora_divisa_export' di=data_inicial df=data_final %}"
+						>Exportar Excel</a
+					>
+				</div>
+			</div>
+		</nav>
 
-        <div class="resumo">
-            <fieldset name="Resumo">
-                <legend>SLA de Atendimento</legend>
-                <ul>
-                   <li><b>Qtd. No Prazo P1:</b>  - {{resumo.atendimento_no_prazo_p1}}</li>
-                    <li><b>Qtd. Fora do Prazo P1:</b> - {{resumo.atendimento_fora_prazo_p1}}</li>
-                    <li><b>Qtd. No Prazo P2:</b> - {{resumo.atendimento_no_prazo_p2}}</li>
-                    <li><b>Qtd. Fora do Prazo P2:</b> - {{resumo.atendimento_fora_prazo_p2}}</li>
-                    <li><b>Qtd. No Prazo P3:</b> - {{resumo.atendimento_no_prazo_p3}}</li>
-                    <li><b>Qtd. Fora do Prazo P3:</b> - {{resumo.atendimento_fora_prazo_p3}}</li>
-                </ul>
-            </fieldset>
-            <fieldset name="Resumo">
-                <legend>SLA de solução</legend>
-                <ul>
-                    <li><b>Qtd. No Prazo P1:</b> - {{resumo.solucao_no_prazo_p1}}</li>
-                    <li><b>Qtd. Fora do Prazo P1:</b> - {{resumo.solucao_fora_prazo_p1}}</li>
-                    <li><b>Qtd. No Prazo P2:</b> - {{resumo.solucao_no_prazo_p2}}</li>
-                    <li><b>Qtd. Fora do Prazo P2:</b> - {{resumo.solucao_fora_prazo_p2}}</li>
-                    <li><b>Qtd. No Prazo P3:</b> - {{resumo.solucao_no_prazo_p3}}</li>
-                    <li><b>Qtd. Fora do Prazo P3:</b> - {{resumo.solucao_fora_prazo_p3}}</li>
-                </ul>
-            </fieldset>
-        </div>
-        <table class="tabela_95">
+        <table class="table table-bordered table-sm">
             <thead>
             <tr>
                 <th>Chave</th>
