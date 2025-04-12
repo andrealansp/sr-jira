@@ -5,8 +5,8 @@
 }
 
 body {
-    background: #ededed;
-    font-size: .9rem;
+    background: #cecece;
+    font-size: 1rem;
 }
 
 .resumo {
@@ -44,44 +44,6 @@ body {
     color: darkgreen;
     font-weight: bold;
     font-size: 25px;
-}
-
-.visualbtn {
-    color: orange;
-    font-weight: bold;
-    font-size: 25px;
-    margin: 10px;
-}
-
-.deletebtn {
-    color: red;
-    font-weight: bold;
-    font-size: 25px;
-}
-
-.cabecalho {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    width: 100%;
-    background-color: #5b6b8b;
-    border-bottom: 2px solid darkgray;
-}
-
-.cabecalho h3 {
-    color: white;
-    vertical-align: middle;
-}
-
-.cabecalho .logout {
-    color: white;
-    font-size: 30px;
-    vertical-align: middle;
-}
-
-.cabecalho a {
-    text-decoration: none;
 }
 
 

@@ -22,7 +22,7 @@ class PreventivasView(LoginRequiredMixin, TemplateView):
         context['estatistica'] = self.get_statistics_data()
         return context
 
-    async def get_statistics_data(self):
+    def get_statistics_data(self):
         jira_context = JiraHandling(
             os.getenv("URL"),
             os.getenv("USER_JIRA"),
@@ -56,7 +56,9 @@ class PerkonsRelatorioTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['chamados'] = self.get_issues_jira()
+        chamados, estatistica = self.get_issues_jira()
+        context["chamados"] = chamados
+        context["estatistica"] = estatistica
         return context
 
     def get_issues_jira(self):
@@ -67,7 +69,9 @@ class PerkonsRelatorioTemplateView(TemplateView):
             os.getenv("CAMPOS_PCLS"),
         )
         jira_context.set_jql("perkons-preventivas-pcls", self.kwargs['di'], self.kwargs['df'])
-        return jira_context.getissues()
+        chamados = jira_context.getissues()
+        estatistica = jira_context.get_statistic_preventive()
+        return chamados, estatistica
 
 
 class VelsisFormView(LoginRequiredMixin, FormView):

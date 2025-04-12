@@ -56,7 +56,7 @@ class CameraUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class CameraDelete(LoginRequiredMixin, DeleteView):
-    login_url = "/usuarios/login"
+    login_url = "/accounts/login/"
     queryset = Cameras.objects.all()
-    success_url = reverse_lazy("termos:list")
+    success_url = reverse_lazy("cameras:list")
     template_name_suffix = "_confirm_delete"

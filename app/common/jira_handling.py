@@ -248,34 +248,4 @@ class JiraHandling:
 
 
 if __name__ == "__main__":
-    import os
-
-    options = {"server": os.getenv("BASE_URL")}
-    print(os.getenv("USER_JIRA"), os.getenv("API_TOKEN"))
-    jira = JIRA(options, basic_auth=(os.getenv("USER_JIRA"), os.getenv("API_TOKEN")))
-
-    jira.issue("CIES-15211")
-    print(jira.fields.__dict__)
-
-    # jql_query = """assignee in (currentUser()) AND project = CIES AND issuetype = "Preventiva PCL" AND\
-    #       status = Resolved AND resolved >= 2025-03-01 AND resolved\
-    #       <= 2025-04-01 ORDER BY created ASC, creator DESC, issuetype ASC, timespent DESC"""
-    # all_issues = []
-    # start_at = 0
-    # max_results = 100  # Número máximo de resultados por página (padrão e máximo da API REST do Jira)
-
-    # while True:
-    #     issues = jira.search_issues(jql_query, startAt=start_at, maxResults=max_results)
-    #     all_issues.extend(issues.iterable)  # A lista de issues está em 'iterable'
-    #     total = issues.total
-    #     start_at += len(issues.iterable)
-
-    #     if start_at >= total:
-    #         break
-
-    # print(f"Total de issues encontradas: {len(all_issues)}")
-    # # Agora a lista 'all_issues' contém todos os issues retornados pela sua JQL
-    # # Você pode processar os dados como desejar
-    # # Exemplo: imprimir os summaries dos issues
-    # for issue in all_issues:
-    #     print(issue.key, issue.fields.summary)
+    ...
