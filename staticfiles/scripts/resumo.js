@@ -1,8 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const abertura_rmgv = document.getElementById('#abertosrmgv')
-    const abertura_fora_rmgv = document.getElementById('#abertosforarmgv')
-    const fechamento_rmgv = document.getElementById('#fechadosrmgv')
-    const fechamento_fora_rmgv =document.getElementById('#fechadosforarmgv')
+    let abertura_rmgv = document.getElementById('abertosrmgv')
+    let abertura_fora_rmgv = document.getElementById('abertosforarmgv')
+    let fechamento_rmgv = document.getElementById('fechadosrmgv')
+    let fechamento_fora_rmgv =document.getElementById('fechadosforarmgv')
+    let abertos =document.getElementById('abertos')
+    let fechados =document.getElementById('fechados')
 
-    console.log(abertura_rmgv,abertura_fora_rmgv,fechamento_fora_rmgv,fechamento_rmgv)
+    axios.get("/preventivas/estatisticas")
+        .then(function (response){
+            abertura_rmgv.innerHTML = response.data["ABERTOS_RMGV"];
+            abertura_fora_rmgv.innerHTML = response.data["ABERTOS_FORA_DIVISA"];
+            fechamento_rmgv.innerHTML = response.data["FECHADOS_RMGV"];
+            fechamento_fora_rmgv.innerHTML = response.data["FECHADOS_FORA_DIVISA"];
+            abertos.innerHTML = response.data["CHAMADOS_ABERTOS"];
+            fechados.innerHTML = response.data["FECHADOS_RMGV"] + response.data["FECHADOS_FORA_DIVISA"];
+        })
+
 })

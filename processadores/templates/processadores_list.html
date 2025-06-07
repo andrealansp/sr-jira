@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <div class="row m-2">
+    <div class="col">
+        {% bootstrap_button "Adicionar" button_type="link" size="sm" href="./adicionar"  %}
+    </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="principal table-responsive">
+                <table class="table text-nowrap table-bordered">
+                    <thead>
+                    <tr>
+                        <th colspan="14">Quantidade de processadores: {{ qtd_processadores }}</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Ações</th>
+                        <th scope="col">Identificação</th>
+                        <th scope="col">Série</th>
+                        <th scope="col">Número Processador</th>
+                        <th scope="col">Faixa</th>
+                        <th scope="col">Endereço</th>
+                        <th scope="col">Município</th>
+                        <th scope="col">Regional</th>
+                        <th scope="col">Fabricante</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Centro de Custo</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Tipo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for p in object_list %}
+                        <tr>
+                            <td></td>
+                            <td>{{ p.identificacao }}</td>
+                            <td>{{ p.serie }}</td>
+                            <td>{{ p.numero_processador }}</td>
+                            <td>{{ p.faixa }}</td>
+                            <td>{{ p.endereco }}</td>
+                            <td>{{ p.municipio }}</td>
+                            <td>{{ p.regional }}</td>
+                            <td>{{ p.fabricante }}</td>
+                            <td>{{ p.cliente }}</td>
+                            <td>{{ p.centro_custo }}</td>
+                            <td>{{ p.modelo }}</td>
+                            <td>{{ p.tipo }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <nav class="nav">
+                        <ul class="pagination">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{ page_obj.previous_page_number }}">previous</a>
+                                </li>
+                            {% endif %}
+                            <li class="page-item page-link">Page {{ page_obj.number }}
+                                of {{ page_obj.paginator.num_pages }}.
+                                {% if page_obj.has_next %}
+                                    <li class="page-item"><a class="page-link"
+                                                             href="?page={{ page_obj.next_page_number }}">next</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link"
+                                                             href="?page={{ page_obj.paginator.num_pages }}">last
+                                        &raquo;</a></li>
+                                {% endif %}
+                        </ul>
+                        </span>
+                    </nav>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

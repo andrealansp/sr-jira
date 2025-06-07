@@ -10,3 +10,17 @@ font-weight: bold;
 box-sizing: border-box;
 color: #483285;
 }
+
+.folha-rosto{
+    height: 100vh;
+    width: auto;
+    padding: 2%;
+    border: black solid 1px;
+}
+
+.folha-rosto-salas{
+    height: 95vh;
+    width: auto;
+    padding: 2%;
+    border: black solid 1px;
+}
