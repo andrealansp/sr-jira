@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "accounts",
-    "acompanhamento",
     "django_bootstrap5",
     "corretiva",
     "cameras",

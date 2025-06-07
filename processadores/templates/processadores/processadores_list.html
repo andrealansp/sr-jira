@@ -34,7 +34,11 @@
                     <tbody>
                     {% for p in object_list %}
                         <tr>
-                            <td></td>
+                            <td>
+                                <a href="{% url 'processadores:atualizar' pk=p.id %}" class="btn btn-outline-primary btn-sm"><i class="bi bi-pen-fill"></i></a>
+                                |
+                                 <a href="{% url 'processadores:deletar' pk=p.id %}" class="btn btn-outline-danger btn-sm"><i class="bi bi-trash-fill"></i></a>
+                            </td>
                             <td>{{ p.identificacao }}</td>
                             <td>{{ p.serie }}</td>
                             <td>{{ p.numero_processador }}</td>

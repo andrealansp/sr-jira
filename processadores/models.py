@@ -27,5 +27,5 @@ class Processador(models.Model):
 
 
     def __str__(self):
-        return f"{self.identificacao} - {self.contrato}"
+        return f"{self.identificacao} - {self.cliente}"
 
