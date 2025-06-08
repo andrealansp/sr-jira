@@ -1,92 +1,114 @@
 <!DOCTYPE html>
 {% load static %} {% load django_bootstrap5 %}
 <html lang="pt-BR">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link
-			rel="icon"
-			type="image/x-icon"
-			href="{% static 'images/favicon.ico' %}" />
-			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-		<title>Extração de Preventivas</title>
-		{% bootstrap_css %}
-		<link rel="stylesheet" href={% static "styles/base_stprev.css" %}>
-	</head>
-	<body>
-		<main class="container-fluid inter-400">
-			<div class="row">
-				<nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #172031;>
-					<div class="container-fluid">
-						<a class="navbar-brand px-3" href="#">
-      					<img src={% static "images/logo2.png" %} height="64px" width="64px"
-	 					 alt="" width="30" height="24" class="d-inline-block align-text-top">
-   						 </a>
-						<button
-							class="navbar-toggler"
-							type="button"
-							data-bs-toggle="collapse"
-							data-bs-target="#navbarSupportedContent"
-							aria-controls="navbarSupportedContent"
-							aria-expanded="false"
-							aria-label="Toggle navigation">
-							<span class="navbar-toggler-icon"></span>
-						</button>
-						<div class="collapse navbar-collapse" id="navbarSupportedContent">
-							<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-								<li class="nav-item">
-									<a class="nav-link active" aria-current="page" href={% url "preventivas" %}
-										>Resumo</a>
-								</li>
-								<li class="nav-item dropdown">
-									<a
-										class="nav-link dropdown-toggle"
-										href="#"
-										role="button"
-										data-bs-toggle="dropdown"
-										aria-expanded="false">
-										Preventiva
-									</a>
-									<ul class="dropdown-menu">
-										<li><a class="dropdown-item" href={% url "preventivas_perkons" %}>Ponto de Coleta</a></li>
-										<li>
-											<a class="dropdown-item" href={% url "preventivas_velsis" %}>Ponto de Balança</a>
-										</li>
-										<li>
-											<a class="dropdown-item" href={% url "preventivas_salas" %}>Salas de Operação</a>
-										</li>
-									</ul>
-								</li>
-								<li class="nav-item dropdown">
-									<a
-										class="nav-link dropdown-toggle"
-										href="#"
-										role="button"
-										data-bs-toggle="dropdown"
-										aria-expanded="false">
-										Câmeras
-									</a>
-									<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href={% url "cameras:list" %}>Lista de Câmeras</a></li>
-										<li>
-										<li><a class="dropdown-item" href={% url "cameras:create" %}>Cadastro de Câmeras</a></li>
-									</ul>
-								</li>
-							</ul> 
-							<form class="d-flex px-3" action="{% url 'logout' %}" method="post" id="logout">
-									{% csrf_token %}
-									<a class="btn btn-primary" href="javascript:{}" onclick="document.getElementById('logout').submit();">
-			                        <span class="link-name">Sair do Sistema</span>
-            				        </a>
-                					</form>
-						</div>
-					</div>
-				</nav>
-			</div>
-			<div class="row justify-content-center">{% block content %}{% endblock content %}</div>
-		</main>
-		{% bootstrap_javascript %}
-		<script src="{% static 'scripts/base.js' %}"></script>
-	</body>
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link
+            rel="icon"
+            type="image/x-icon"
+            href="{% static 'images/favicon.ico' %}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Extração de Preventivas</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" href={% static "styles/base_stprev.css" %}>
+</head>
+<body>
+<main class="container-fluid inter-400">
+    <div class="row">
+        <nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #172031" ;>
+            <div class="container-fluid">
+                <a class="navbar-brand px-3" href="#">
+                    <img src='{% static "images/logo2.png" %}' alt="Logo Perkons" height="64" width="64"
+                         class="d-inline-block align-text-top">
+                </a>
+                <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href={% url "preventivas" %}
+                            >Resumo</a>
+                        </li>
+                        {# Fim do botão Resumo #}
+                        <li class="nav-item dropdown">
+                            <a
+                                    class="nav-link dropdown-toggle"
+                                    href="#"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                Preventiva
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href={% url "preventivas_perkons" %}>Ponto de Coleta</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href={% url "preventivas_velsis" %}>Ponto de Balança</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href={% url "preventivas_salas" %}>Salas de Operação</a>
+                                </li>
+                            </ul>
+                        </li>
+                        {# Fim do dropdown preventivas #}
+                        <li class="nav-item dropdown">
+                            <a
+                                    class="nav-link dropdown-toggle"
+                                    href="#"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                Câmeras
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href={% url "cameras:list" %}>Lista de Câmeras</a></li>
+                                <li>
+                                <li><a class="dropdown-item" href={% url "cameras:create" %}>Cadastro de Câmeras</a>
+                                </li>
+                            </ul>
+                        </li>
+                        {# Fim do dropdown Câmeras #}
+                        <li class="nav-item dropdown">
+                            <a
+                                    class="nav-link dropdown-toggle"
+                                    href="#"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                Processadores
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href={% url "processadores:listar" %}>Lista de processadores</a></li>
+                                <li>
+                                <li><a class="dropdown-item" href={% url "processadores:listar_acompanhamento" %}>Lista de acompanhamento</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex px-3" action="{% url 'logout' %}" method="post" id="logout">
+                        {% csrf_token %}
+                        <a class="btn btn-primary" href="javascript:{}"
+                           onclick="document.getElementById('logout').submit();">
+                            <span class="link-name">Sair do Sistema</span>
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="row justify-content-center">{% block content %}{% endblock content %}</div>
+</main>
+{% bootstrap_javascript %}
+<script src="{% static 'scripts/base.js' %}"></script>
+</body>
 </html>

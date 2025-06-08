@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <div class="row my-2">
+        <div class="col">
+            <div class="principal">
+            <h1>Relatório de Ocorrências</h1>
+                {% for a in object_list %}
+                    <h5>Processador: {{ a.id_processador.identificacao }} - <span>SLA: {{ a.get_status_sla_display }}</span></h5>
+                    <hr>
+                    <p><b>Período da Ocorrência:</b> {{ a.data_inicial }} à {{ a.data_final }} - Duração: {{ a.duracao }}</p>
+                    <p><b>Problema Apresentado:</b> <br> {{ a.problema_apresentado }}</p>
+                    <p><b>Ação Tomada:</b> <br> {{ a.acao_tomada }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

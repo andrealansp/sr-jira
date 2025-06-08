@@ -2,10 +2,11 @@ from datetime import datetime
 from typing import Any
 from django.db.models.query import QuerySet
 from django.db.models import Q
+from django.utils.http import urlencode
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from .models import Cameras
 from .forms import CameraForm
 
@@ -46,7 +47,7 @@ class CameraCreateView(LoginRequiredMixin, CreateView):
     login_url = "/accounts/login/"
     model = Cameras
     form_class = CameraForm
-    success_url = reverse_lazy("cameras:list")
+    success_url = reverse_lazy("cameras:create")
     template_name_suffix = "_create_form"
 
     def get_initial(self, *args, **kwargs) -> dict[str, Any]:
@@ -59,13 +60,23 @@ class CameraUpdateView(LoginRequiredMixin, UpdateView):
     login_url = "/accounts/login/"
     model = Cameras
     form_class = CameraForm
-    success_url = reverse_lazy("cameras:list")
     template_name_suffix = "_update_form"
 
     def get_initial(self, *args, **kwargs) -> dict[str, Any]:
         initial = super().get_initial(**kwargs)
         initial["atualizado"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         return initial
+
+    def get_success_url(self):
+        """
+        Constrói a URL de redirecionamento com parâmetros de filtro.
+        """
+        camera = self.object
+        base_url = reverse('cameras:list')
+        query_params = {'ponto': camera.ponto}
+        encoded_params = urlencode(query_params)
+        redirect_url = f'{base_url}?{encoded_params}'
+        return redirect_url
 
 
 class CameraDelete(LoginRequiredMixin, DeleteView):

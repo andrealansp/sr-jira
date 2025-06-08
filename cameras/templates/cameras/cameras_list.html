@@ -1,46 +1,49 @@
 {% extends "base.html" %} {% load static %} {% load django_bootstrap5 %} {% block content %}
-    <div class="col-12 mt-1">
-        <div class="row m-2">
-            <div class="col d-flex justify-content-center">
-                <form action="">
-                    <div class="row g-1">
-                        <div class="col">
-                            <input
-                                    type="text"
-                                    class="form-control form-control-sm"
-                                    name="ponto"
-                                    placeholder="Ponto"/>
+    <div class="col-12 mt-2">
+        <div class="row mt-2">
+            <h1>Lista de Câmeras</h1>
+            <div class="col d-flex ">
+                <div class="principal mb-2">
+                    <form action="">
+                        <div class="row">
+                            <div class="col">
+                                <input
+                                        type="text"
+                                        class="form-control form-control-sm"
+                                        name="ponto"
+                                        placeholder="Ponto"/>
+                            </div>
+                            <div class="col">
+                                <input
+                                        type="text"
+                                        class="form-control form-control-sm"
+                                        name="serial"
+                                        placeholder="Serial"/>
+                            </div>
+                            <div class="col">
+                                <input
+                                        type="text"
+                                        class="form-control form-control-sm"
+                                        name="regiao"
+                                        placeholder="Região"/>
+                            </div>
+                            <div class="col">
+                                <input
+                                        type="text"
+                                        class="form-control form-control-sm"
+                                        name="nome_camera"
+                                        placeholder="Nome da Câmera"/>
+                            </div>
+                            <div class="col">
+                                <button
+                                        type="submit"
+                                        class="form-control-sm btn btn-outline-primary">
+                                    Pesquisar
+                                </button>
+                            </div>
                         </div>
-                        <div class="col">
-                            <input
-                                    type="text"
-                                    class="form-control form-control-sm"
-                                    name="serial"
-                                    placeholder="Serial"/>
-                        </div>
-                        <div class="col">
-                            <input
-                                    type="text"
-                                    class="form-control form-control-sm"
-                                    name="regiao"
-                                    placeholder="Região"/>
-                        </div>
-                        <div class="col">
-                            <input
-                                    type="text"
-                                    class="form-control form-control-sm"
-                                    name="nome_camera"
-                                    placeholder="Nome da Câmera"/>
-                        </div>
-                        <div class="col">
-                            <button
-                                    type="submit"
-                                    class="form-control-sm btn btn-outline-primary">
-                                Pesquisar
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="row">

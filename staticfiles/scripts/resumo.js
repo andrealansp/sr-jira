@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let abertos =document.getElementById('abertos')
     let fechados =document.getElementById('fechados')
 
+    document.getElementById('spinner').style.display = 'block';
     axios.get("/preventivas/estatisticas")
         .then(function (response){
             abertura_rmgv.innerHTML = response.data["ABERTOS_RMGV"];
@@ -15,5 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
             abertos.innerHTML = response.data["CHAMADOS_ABERTOS"];
             fechados.innerHTML = response.data["FECHADOS_RMGV"] + response.data["FECHADOS_FORA_DIVISA"];
         })
+    .finally(() => {
+        document.getElementById('spinner').style.display = 'none';
+    });
 
 })

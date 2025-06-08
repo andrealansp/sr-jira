@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <div class="row mt-1">
+        <div class="col">
+            <div class="principal">
+                <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% bootstrap_form_errors form %}
+                {% bootstrap_button button_type="submit" button_class="btn-primary" size="sm" content="Enviar" %}
+				{% bootstrap_button button_type="reset" button_class="btn-danger" size="sm" content="Cancelar" %}
+				{% bootstrap_button button_type="link" href="/preventivas" button_class="btn-warning" size="sm" content="Retornar" %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

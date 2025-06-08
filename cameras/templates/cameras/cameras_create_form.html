@@ -5,44 +5,47 @@
 			<h1>Formulário de Cadastro de Câmera</h1>
 		</div>
 		<div>{% bootstrap_form_errors form layout='inline' %}</div>
-		<form action="" method="post" class="form">
-			{% csrf_token %}
-			<div class="row mt-2">
-				<div class="col-4">
-					{% bootstrap_field form.ponto size=small show_label=True %}
-				</div>
-				<div class="col-4">
-					{% bootstrap_field form.regiao size=small show_label=True %}
-				</div>
+        <div class="principal">
 
-				<div class="col-4">
-					{% bootstrap_field form.nome_ponto size=small show_label=True %}
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-4">
-					{% bootstrap_field form.ip size=small show_label=True %}
-				</div>
-				<div class="col-4">
-					{% bootstrap_field form.porta size=small show_label=True %}
-				</div>
-				<div class="col-4">
-					{% bootstrap_field form.nome_camera size=small show_label=True %}
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-4">
-					{% bootstrap_field form.longitude size=small show_label=True %}
-				</div>
-				<div class="col-4">
-					{% bootstrap_field form.latitude size=small show_label=True %}
-				</div>
-			</div>
-			<div>
-				{% bootstrap_button button_type="submit" content="OK" %}
-				{% bootstrap_button button_type="reset" content="Cancel" %}
-			</div>
-		</form>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                <div class="row mt-2">
+                    <div class="col-4">
+                        {% bootstrap_field form.ponto size=small show_label=True %}
+                    </div>
+                    <div class="col-4">
+                        {% bootstrap_field form.regiao size=small show_label=True %}
+                    </div>
+
+                    <div class="col-4">
+                        {% bootstrap_field form.nome_ponto size=small show_label=True %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        {% bootstrap_field form.ip size=small show_label=True %}
+                    </div>
+                    <div class="col-4">
+                        {% bootstrap_field form.porta size=small show_label=True %}
+                    </div>
+                    <div class="col-4">
+                        {% bootstrap_field form.nome_camera size=small show_label=True %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        {% bootstrap_field form.longitude size=small show_label=True %}
+                    </div>
+                    <div class="col-4">
+                        {% bootstrap_field form.latitude size=small show_label=True %}
+                    </div>
+                </div>
+                <div>
+                    {% bootstrap_button button_type="submit" content="OK" %}
+                    {% bootstrap_button button_type="reset" content="Cancel" %}
+                </div>
+            </form>
+        </div>
 	</div>
 </div>
 {% endblock %}

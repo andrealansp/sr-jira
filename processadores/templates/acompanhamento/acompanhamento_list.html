@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <div class="row m-2">
+        <div class="col">
+            <h1>Lista de ocorrências com processadores</h1>
+        </div>
+    </div>
+    <div class="row m-2">
+        <div class="col principal">
+            <a href="{% url 'processadores:registrar_acompanhamento' %}" class="btn btn-primary btn-sm">Registrar
+                Ocorrência</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col principal">
+            <nav class="nav">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                        <li class="page-item"><a class="page-link"
+                                                 href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        </li>
+                    {% endif %}
+                    <li class="page-item page-link">Page {{ page_obj.number }}
+                        of {{ page_obj.paginator.num_pages }}.
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link"
+                                                     href="?page={{ page_obj.next_page_number }}">next</a>
+                            </li>
+                            <li class="page-item"><a class="page-link"
+                                                     href="?page={{ page_obj.paginator.num_pages }}">last
+                                &raquo;</a></li>
+                        {% endif %}
+                </ul>
+            </nav>
+            <table class="table text-nowrap table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Ações</th>
+                    <th scope="col">Identificação</th>
+                    <th scope="col">Data Inicial</th>
+                    <th scope="col">Data Final</th>
+                    <th scope="col">Problema Apresentado</th>
+                    <th scope="col">Ação Tomada</th>
+                    <th scope="col">Status do SLA</th>
+                    <th scope="col">Duração da Ocorrência</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for a in object_list %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'processadores:atualizar_acompanhamento' pk=a.id %}"
+                               class="btn btn-outline-primary btn-sm"><i class="bi bi-pen-fill"></i></a>
+                            |
+                            <a href="{% url 'processadores:deletar_acompanhamento' pk=a.id %}"
+                               class="btn btn-outline-danger btn-sm"><i class="bi bi-trash-fill"></i></a>
+                        </td>
+                        <td>{{ a.id_processador.identificacao }}</td>
+                        <td>{{ a.data_inicial }}</td>
+                        <td>{{ a.data_final }}</td>
+                        <td>{{ a.problema_apresentado }}</td>
+                        <td>{{ a.acao_tomada }}</td>
+                        <td>{{ a.get_status_sla_display }}</td>
+                        <td>{{ a.duracao }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
