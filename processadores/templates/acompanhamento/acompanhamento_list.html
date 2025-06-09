@@ -2,19 +2,24 @@
 {% load static %}
 {% load django_bootstrap5 %}
 {% block content %}
-    <div class="row m-2">
+    <div class="row custom_header m-2">
         <div class="col">
             <h1>Lista de ocorrências com processadores</h1>
         </div>
     </div>
-    <div class="row m-2">
-        <div class="col principal">
+    <div class="row principal m-2">
+        <div class="col">
+            <input class="btn btn-danger btn-sm" type="reset" value="Retornar"
+                       onClick="history.back()"/>
             <a href="{% url 'processadores:registrar_acompanhamento' %}" class="btn btn-primary btn-sm">Registrar
                 Ocorrência</a>
         </div>
+
+    {# todo Criar formulário para selecionar mês e ano e enviar para a url (acompanhamento/visualizar/ano/mes);#}
+
     </div>
-    <div class="row">
-        <div class="col principal">
+    <div class="row principal m-2">
+        <div class="col table-responsive">
             <nav class="nav">
                 <ul class="pagination">
                     {% if page_obj.has_previous %}

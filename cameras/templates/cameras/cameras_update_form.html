@@ -1,18 +1,23 @@
 {% extends "base.html" %} {% load static %}{% load django_bootstrap5 %} {% block content %}
-<div class="col-11 mt-1">
-	<div class="row">
-		<div class="col">
-			<h1>Formulário de Atualização de Câmera</h1>
-		</div>
-		<div>{% bootstrap_form_errors form layout='inline' %}</div>
-		<form action="" method="post" class="form">
-			{% csrf_token %} 
-			{% bootstrap_form form %}
-			<div>
-				{% bootstrap_button button_type="submit" content="OK" %} 
-				{% bootstrap_button button_type="reset" content="Cancel" %}
-			</div>
-		</form>
-	</div>
-</div>
+    <div class="row custom_header m-2">
+        <div class="col">
+            <h1>Formulário de Atualização de Câmera</h1>
+        </div>
+    </div>
+    <div class="row principal m-2">
+        <div class="col">
+            <input class="btn btn-danger btn-sm" type="reset" value="Retornar"
+                       onClick="history.back()"/>
+            <hr>
+            <div>{% bootstrap_form_errors form layout='inline' %}</div>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                {% bootstrap_form form label_class="negrito"%}
+                <div>
+                    {% bootstrap_button button_type="submit" content="OK" %}
+                </div>
+            </form>
+        </div>
+    </div>
+
 {% endblock %}

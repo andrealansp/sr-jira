@@ -1,126 +1,130 @@
 {% extends "base.html" %} {% load static %} {% load django_bootstrap5 %} {% block content %}
-    <div class="col-12 mt-2">
-        <div class="row mt-2">
+    <div class="row custom_header m-2">
+        <div class="col">
             <h1>Lista de Câmeras</h1>
-            <div class="col d-flex ">
-                <div class="principal mb-2">
-                    <form action="">
-                        <div class="row">
-                            <div class="col">
-                                <input
-                                        type="text"
-                                        class="form-control form-control-sm"
-                                        name="ponto"
-                                        placeholder="Ponto"/>
-                            </div>
-                            <div class="col">
-                                <input
-                                        type="text"
-                                        class="form-control form-control-sm"
-                                        name="serial"
-                                        placeholder="Serial"/>
-                            </div>
-                            <div class="col">
-                                <input
-                                        type="text"
-                                        class="form-control form-control-sm"
-                                        name="regiao"
-                                        placeholder="Região"/>
-                            </div>
-                            <div class="col">
-                                <input
-                                        type="text"
-                                        class="form-control form-control-sm"
-                                        name="nome_camera"
-                                        placeholder="Nome da Câmera"/>
-                            </div>
-                            <div class="col">
-                                <button
-                                        type="submit"
-                                        class="form-control-sm btn btn-outline-primary">
-                                    Pesquisar
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="principal table-responsive">
-                    <table class="table text-nowrap table-bordered">
-                        <thead>
-                        <tr>
-                            <th colspan="11">Quantidade de câmeras: {{ qtd_cameras }}</th>
-                        </tr>
-                        <tr>
-                            <th scope="col">Ações</th>
-                            <th scope="col">Ponto</th>
-                            <th scope="col">Nome do Ponto</th>
-                            <th scope="col">IP</th>
-                            <th scope="col">Porta</th>
-                            <th scope="col">Nome da Câmera</th>
-                            <th scope="col">Regiao</th>
-                            <th scope="col">Firmware</th>
-                            <th scope="col">Serial</th>
-                            <th scope="col">Modelo</th>
-                            <th scope="col">Atualizado</th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for c in object_list %}
-                            <tr>
-                                <td><a class="btn btn-sm btn-outline-info d-inline-block"
-                                       href="{% url "cameras:update" pk=c.id %}" target="_blank"><i class="bi bi-pen-fill"></i></a>
-                                    <a class="btn btn-sm btn-outline-danger d-inline-block"
-                                       href="{% url "cameras:delete" pk=c.id %}" target="_blank"><i class="bi bi-eraser-fill"></i></a>
-                                    <a class="btn btn-sm btn-outline-success d-inline-block"
-                                       href="http://{{c.ip}}:{{c.porta}}" target="_blank"><i class="bi bi-browser-chrome"></i></a>
-                                    <a class="btn btn-sm btn-outline-success d-inline-block"
-                                       href="http://{{c.ip}}:9080" target="_blank"><i class="bi bi-arrow-clockwise"></i></a>
-                                </td>
-                                <td>{{ c.ponto }}</td>
-                                <td>{{ c.nome_ponto }}</td>
-                                <td>{{ c.ip }}</td>
-                                <td>{{ c.porta }}</td>
-                                <td>{{ c.nome_camera }}</td>
-                                <td>{{ c.regiao }}</td>
-                                <td>{{ c.firmware }}</td>
-                                <td>{{ c.serial }}</td>
-                                <td>{{ c.modelo }}</td>
-                                <td>{{ c.atualizado }}</td>
-
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                        <tfoot>
-                        <nav class="nav">
-                            <ul class="pagination">
-                                {% if page_obj.has_previous %}
-                                    <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
-                                    <li class="page-item"><a class="page-link"
-                                                             href="?page={{ page_obj.previous_page_number }}">previous</a>
-                                    </li>
-                                {% endif %}
-                                <li class="page-item page-link">Page {{ page_obj.number }}
-                                    of {{ page_obj.paginator.num_pages }}.
-                                    {% if page_obj.has_next %}
-                                        <li class="page-item"><a class="page-link"
-                                                                 href="?page={{ page_obj.next_page_number }}">next</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link"
-                                                                 href="?page={{ page_obj.paginator.num_pages }}">last
-                                            &raquo;</a></li>
-                                    {% endif %}
-                            </ul>
-                            </span>
-                        </nav>
-                        </tfoot>
-                    </table>
+    </div>
+    <div class="row m-2 principal">
+        <div class="col">
+            <form action="">
+                <div class="row">
+                    <div class="col">
+                        <input
+                                type="text"
+                                class="form-control form-control-sm"
+                                name="ponto"
+                                placeholder="Ponto"/>
+                    </div>
+                    <div class="col">
+                        <input
+                                type="text"
+                                class="form-control form-control-sm"
+                                name="serial"
+                                placeholder="Serial"/>
+                    </div>
+                    <div class="col">
+                        <input
+                                type="text"
+                                class="form-control form-control-sm"
+                                name="regiao"
+                                placeholder="Região"/>
+                    </div>
+                    <div class="col">
+                        <input
+                                type="text"
+                                class="form-control form-control-sm"
+                                name="nome_camera"
+                                placeholder="Nome da Câmera"/>
+                    </div>
+                    <div class="col">
+                        <button
+                                type="submit"
+                                class="btn btn-primary btn-sm">
+                            Pesquisar
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
+    </div>
+    <div class="row principal  m-2">
+        <div class="col table-responsive">
+
+            <table class="table text-nowrap table-bordered">
+                <thead>
+                <tr>
+                    <th colspan="11">Quantidade de câmeras: {{ qtd_cameras }}</th>
+                </tr>
+                <tr>
+                    <th scope="col">Ações</th>
+                    <th scope="col">Ponto</th>
+                    <th scope="col">Nome do Ponto</th>
+                    <th scope="col">IP</th>
+                    <th scope="col">Porta</th>
+                    <th scope="col">Nome da Câmera</th>
+                    <th scope="col">Regiao</th>
+                    <th scope="col">Firmware</th>
+                    <th scope="col">Serial</th>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Atualizado</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for c in object_list %}
+                    <tr>
+                        <td><a class="btn btn-sm btn-outline-info d-inline-block"
+                               href="{% url "cameras:update" pk=c.id %}" target="_blank"><i
+                                class="bi bi-pen-fill"></i></a>
+                            <a class="btn btn-sm btn-outline-danger d-inline-block"
+                               href="{% url "cameras:delete" pk=c.id %}" target="_self"><i
+                                    class="bi bi-eraser-fill"></i></a>
+                            <a class="btn btn-sm btn-outline-success d-inline-block"
+                               href="http://{{ c.ip }}:{{ c.porta }}" target="_blank"><i
+                                    class="bi bi-browser-chrome"></i></a>
+                            <a class="btn btn-sm btn-outline-success d-inline-block"
+                               href="http://{{ c.ip }}:9080" target="_blank"><i
+                                    class="bi bi-arrow-clockwise"></i></a>
+                        </td>
+                        <td>{{ c.ponto }}</td>
+                        <td>{{ c.nome_ponto }}</td>
+                        <td>{{ c.ip }}</td>
+                        <td>{{ c.porta }}</td>
+                        <td>{{ c.nome_camera }}</td>
+                        <td>{{ c.regiao }}</td>
+                        <td>{{ c.firmware }}</td>
+                        <td>{{ c.serial }}</td>
+                        <td>{{ c.modelo }}</td>
+                        <td>{{ c.atualizado }}</td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <nav class="nav">
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                            <li class="page-item"><a class="page-link"
+                                                     href="?page={{ page_obj.previous_page_number }}">previous</a>
+                            </li>
+                        {% endif %}
+                        <li class="page-item page-link">Page {{ page_obj.number }}
+                            of {{ page_obj.paginator.num_pages }}.
+                            {% if page_obj.has_next %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{ page_obj.next_page_number }}">next</a>
+                                </li>
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{ page_obj.paginator.num_pages }}">last
+                                    &raquo;</a></li>
+                            {% endif %}
+                    </ul>
+                    </span>
+                </nav>
+                </tfoot>
+            </table>
+        </div>
+    </div>
     </div>
 {% endblock %}

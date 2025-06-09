@@ -1,43 +1,46 @@
 {% extends "base.html" %} {% load static %}{% load django_bootstrap5 %} {% block content %}
-<div class="col-11 mt-1">
-	<div class="row">
-		<div class="col">
-			<h1>Formulário de Cadastro de Câmera</h1>
-		</div>
-		<div>{% bootstrap_form_errors form layout='inline' %}</div>
-        <div class="principal">
-
+    <div class="row custom_header m-2">
+        <div class="col">
+            <h1>Formulário de Cadastro de Câmera</h1>
+        </div>
+    </div>
+    <div class="row principal m-2">
+        <div class="col">
+            <input class="btn btn-danger btn-sm" type="reset" value="Retornar"
+                       onClick="history.back()"/>
+            <hr>
+            <div>{% bootstrap_form_errors form layout='inline' %}</div>
             <form action="" method="post" class="form">
                 {% csrf_token %}
                 <div class="row mt-2">
                     <div class="col-4">
-                        {% bootstrap_field form.ponto size=small show_label=True %}
+                        {% bootstrap_field form.ponto label_class="negrito" size=small show_label=True %}
                     </div>
                     <div class="col-4">
-                        {% bootstrap_field form.regiao size=small show_label=True %}
+                        {% bootstrap_field form.regiao label_class="negrito" size=small show_label=True %}
                     </div>
 
                     <div class="col-4">
-                        {% bootstrap_field form.nome_ponto size=small show_label=True %}
+                        {% bootstrap_field form.nome_ponto label_class="negrito" size=small show_label=True %}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        {% bootstrap_field form.ip size=small show_label=True %}
+                        {% bootstrap_field form.ip size=small label_class="negrito" show_label=True %}
                     </div>
                     <div class="col-4">
-                        {% bootstrap_field form.porta size=small show_label=True %}
+                        {% bootstrap_field form.porta size=small label_class="negrito" show_label=True %}
                     </div>
                     <div class="col-4">
-                        {% bootstrap_field form.nome_camera size=small show_label=True %}
+                        {% bootstrap_field form.nome_camera size=small label_class="negrito" show_label=True %}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        {% bootstrap_field form.longitude size=small show_label=True %}
+                        {% bootstrap_field form.longitude size=small label_class="negrito" show_label=True %}
                     </div>
                     <div class="col-4">
-                        {% bootstrap_field form.latitude size=small show_label=True %}
+                        {% bootstrap_field form.latitude size=small label_class="negrito" show_label=True %}
                     </div>
                 </div>
                 <div>
@@ -46,6 +49,5 @@
                 </div>
             </form>
         </div>
-	</div>
-</div>
+    </div>
 {% endblock %}
