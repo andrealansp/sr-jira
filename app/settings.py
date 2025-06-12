@@ -10,12 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 
 import ldap
-from dotenv import load_dotenv
 from django_auth_ldap.config import LDAPSearch, ActiveDirectoryGroupType
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "accounts",
+    "acompanhamento",
     "django_bootstrap5",
     "corretiva",
     "cameras",
@@ -67,7 +68,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['app/templates', 'templates'],
+        'DIRS': ['app/templates', 'templates', 'acompanhamento/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

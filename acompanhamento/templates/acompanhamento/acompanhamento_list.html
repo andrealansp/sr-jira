@@ -8,15 +8,29 @@
         </div>
     </div>
     <div class="row principal m-2">
-        <div class="col">
+        <div class="col-2">
             <input class="btn btn-danger btn-sm" type="reset" value="Retornar"
-                       onClick="history.back()"/>
+                   onClick="history.back()"/>
             <a href="{% url 'processadores:registrar_acompanhamento' %}" class="btn btn-primary btn-sm">Registrar
                 Ocorrência</a>
         </div>
-
-    {# todo Criar formulário para selecionar mês e ano e enviar para a url (acompanhamento/visualizar/ano/mes);#}
-
+        <div class="col">
+            <form id="filtroMesAnoForm">
+                <div class="row">
+                    <div class="col-3">
+                        <select name="year" id="SelecionaData" class="form-control">
+                            <option value="-----">Selecione o Ano</option>
+                            {% for data in datas %}
+                                <option value="{{ data.0 }}/{{ data.1 }}" class="option">{{ data.1 }}/{{ data.0 }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <input type="submit" class="btn btn-primary btn-sm">
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="row principal m-2">
         <div class="col table-responsive">
@@ -76,4 +90,24 @@
             </table>
         </div>
     </div>
+    <script type="text/javascript">
+        document.getElementById('filtroMesAnoForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            const selectedDate = document.getElementById('SelecionaData').value;
+            const mesano = selectedDate.split('/');
+            console.log(mesano);
+
+            if (selectedDate) {
+                // Constrói a URL usando os valores selecionados
+                const baseUrl = "{% url 'processadores:listar_acompanhamento_mes' year=0 month=0 %}";
+                // Substitui os placeholders na URL
+                const redirectUrl = baseUrl.replace('/0/0', `/${mesano[0]}/${mesano[1]}`);
+                console.log(redirectUrl);
+                window.location.href = redirectUrl;
+            } else {
+                alert('Por favor, selecione um ano e um mês.');
+            }
+        });
+    </script>
 {% endblock %}
