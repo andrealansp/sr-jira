@@ -8,10 +8,6 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ('processadores', '0004_delete_acompanhamento'),
-    ]
-
     operations = [
         migrations.CreateModel(
             name='Acompanhamento',

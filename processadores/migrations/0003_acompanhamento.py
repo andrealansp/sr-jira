@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('acao_tomada', models.TextField(verbose_name='Ação Tomada')),
                 ('status_sla', models.CharField(choices=[('dentro', 'DENTRO'), ('fora', 'FORA')], default='fora', max_length=10, verbose_name='Status')),
                 ('duracao', models.DurationField(blank=True, editable=False, help_text='Duração total da ocorrência (calculado automaticamente)', null=True)),
-                ('id_processador', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='acompanhamento', to='processador.processador')),
+                ('id_processador', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='acompanhamento', to='processadores.processador')),
             ],
             options={
                 'verbose_name': 'Acompanhamento',

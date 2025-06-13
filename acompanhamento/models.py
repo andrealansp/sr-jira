@@ -1,18 +1,23 @@
 from datetime import datetime
 
 from django.db import models
+
 from processadores.models import Processador
 
-class Acompanhamento(models.Model):
 
-    id_processador = models.ForeignKey(Processador, on_delete=models.CASCADE, related_name='acompanhamento')
-    data_inicial = models.DateTimeField("Data Inicial", null=False, blank=False)
-    data_final = models.DateTimeField("Data Final", null=False, blank=False)
-    problema_apresentado = models.TextField("Problema Apresentado", null=False, blank=False)
-    acao_tomada = models.TextField("Ação Tomada", null=False, blank=False)
-    status_sla = models.CharField('Status', max_length=10, choices=[("dentro","DENTRO"),("fora","FORA")],default="fora")
-    duracao = models.DurationField(editable=False,null=True,blank=True,
-                                               help_text="Duração total da ocorrência (calculado automaticamente)")
+class Acompanhamento(models.Model):
+    id_processador = models.ForeignKey(Processador, on_delete=models.CASCADE, related_name='acompanhamento', verbose_name="Procesador")
+    data_inicial = models.DateTimeField("Data Inicial", null=False, blank=False, help_text="Data inicial da ocorrência")
+    data_final = models.DateTimeField("Data Final", null=False, blank=False, help_text="Data final da ocorrência")
+    problema_apresentado = models.TextField("Problema Apresentado", null=False, blank=False,
+                                            help_text="Problema apresentado pelo equipamento")
+    acao_tomada = models.TextField("Ação Tomada", null=False, blank=False,
+                                   help_text="Ação realizada para retorno do equipamento")
+    status_sla = models.CharField('Status do SLA', max_length=10,
+                                  choices=[("dentro", "DENTRO DO PRAZO"), ("fora", "FORA DO PRAZO")], default="fora",
+                                  help_text="Essa ocorrência durou mais que 1 dia ? se sim, fora do prazo, caso contrário, dentro do prazo.")
+    duracao = models.DurationField(editable=False, null=True, blank=True,
+                                   help_text="Duração total da ocorrência (calculado automaticamente)")
 
     class Meta:
         verbose_name = "Acompanhamento"
@@ -33,4 +38,4 @@ class Acompanhamento(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.id_processador.identificacao}-{self.data_inicial}'
+        return f'{self.id_processador_id}-{self.id_processador.identificacao}-{self.data_inicial}'

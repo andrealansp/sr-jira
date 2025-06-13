@@ -11,21 +11,31 @@
         <div class="col-2">
             <input class="btn btn-danger btn-sm" type="reset" value="Retornar"
                    onClick="history.back()"/>
-            <a href="{% url 'processadores:registrar_acompanhamento' %}" class="btn btn-primary btn-sm">Registrar
+            <a href="{% url 'acompanhamento:registrar' %}" class="btn btn-primary btn-sm">Registrar
                 Ocorrência</a>
         </div>
-        <div class="col">
-            <form id="filtroMesAnoForm">
+
+        <div class="col-6">
+            <form id="filtro">
                 <div class="row">
-                    <div class="col-3">
-                        <select name="year" id="SelecionaData" class="form-control">
-                            <option value="-----">Selecione o Ano</option>
+                    <div class="col">
+                        <select name="data" id="SelecionaData" class="form-control form-control-sm">
+                            <option value="">Selecione o Ano</option>
                             {% for data in datas %}
-                                <option value="{{ data.0 }}/{{ data.1 }}" class="option">{{ data.1 }}/{{ data.0 }}</option>
+                                <option value="{{ data.0 }}/{{ data.1 }}"
+                                        class="option">{{ data.0 }}/{{ data.1 }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="col-3">
+                    <div class="col">
+                        <select name="processador" id="pesquisa-processador" class="form-control form-control-sm">
+                            <option value="">Selecione o Processador</option>
+                            {% for p in lista_processador %}
+                                <option value="{{ p.id_processador_id }}">{{ p.id_processador }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col">
                         <input type="submit" class="btn btn-primary btn-sm">
                     </div>
                 </div>
@@ -71,10 +81,10 @@
                 {% for a in object_list %}
                     <tr>
                         <td>
-                            <a href="{% url 'processadores:atualizar_acompanhamento' pk=a.id %}"
+                            <a href="{% url 'acompanhamento:atualizar' pk=a.id %}"
                                class="btn btn-outline-primary btn-sm"><i class="bi bi-pen-fill"></i></a>
                             |
-                            <a href="{% url 'processadores:deletar_acompanhamento' pk=a.id %}"
+                            <a href="{% url 'acompanhamento:deletar' pk=a.id %}"
                                class="btn btn-outline-danger btn-sm"><i class="bi bi-trash-fill"></i></a>
                         </td>
                         <td>{{ a.id_processador.identificacao }}</td>
@@ -90,24 +100,4 @@
             </table>
         </div>
     </div>
-    <script type="text/javascript">
-        document.getElementById('filtroMesAnoForm').addEventListener('submit', function (event) {
-            event.preventDefault(); // Impede o envio padrão do formulário
-
-            const selectedDate = document.getElementById('SelecionaData').value;
-            const mesano = selectedDate.split('/');
-            console.log(mesano);
-
-            if (selectedDate) {
-                // Constrói a URL usando os valores selecionados
-                const baseUrl = "{% url 'processadores:listar_acompanhamento_mes' year=0 month=0 %}";
-                // Substitui os placeholders na URL
-                const redirectUrl = baseUrl.replace('/0/0', `/${mesano[0]}/${mesano[1]}`);
-                console.log(redirectUrl);
-                window.location.href = redirectUrl;
-            } else {
-                alert('Por favor, selecione um ano e um mês.');
-            }
-        });
-    </script>
 {% endblock %}

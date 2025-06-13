@@ -7,6 +7,6 @@ class AcompanhamentoForm(forms.ModelForm):
         model = Acompanhamento
         fields = "__all__"
         widgets = {
-            'data_inicial': forms.DateInput(attrs={'type': 'datetime-local'}),
-            'data_final': forms.DateInput(attrs={'type': 'datetime-local'}),
+            'data_inicial': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'data_final': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
