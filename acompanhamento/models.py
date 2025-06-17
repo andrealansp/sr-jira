@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.db import models
+from django.db.models.functions import ExtractYear, ExtractMonth
 
 from processadores.models import Processador
 
@@ -39,3 +40,23 @@ class Acompanhamento(models.Model):
 
     def __str__(self):
         return f'{self.id_processador_id}-{self.id_processador.identificacao}-{self.data_inicial}'
+
+    @classmethod
+    def get_anos_disponiveis(cls):
+        """
+        Retorna uma lista de anos únicos presentes na data_inicial.
+        """
+        anos = cls.objects.annotate(
+            ano=ExtractYear('data_inicial')
+        ).values('ano').distinct().order_by('ano')
+        return [item['ano'] for item in anos]
+
+    @classmethod
+    def get_meses_disponiveis(cls):
+        """
+        Retorna uma lista de meses únicos presentes na data_inicial.
+        """
+        meses = cls.objects.annotate(
+            mes=ExtractMonth('data_inicial')
+        ).values('mes').distinct().order_by('mes')
+        return [item['mes'] for item in meses]

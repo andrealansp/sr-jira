@@ -1,11 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models.functions import ExtractYear, ExtractMonth
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView, MonthArchiveView
-from django.db.models import Q
-from pandas.core.interchange.from_dataframe import primitive_column_to_ndarray
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView, DetailView
 
 from .forms import AcompanhamentoForm
+from .forms import AcompanhamentoFilterForm
 from .models import Acompanhamento
 
 
@@ -14,30 +12,24 @@ class AcompanhamentoListView(LoginRequiredMixin, ListView):
     model = Acompanhamento
 
     def get_context_data(self, **kwargs):
-        context = super(AcompanhamentoListView, self).get_context_data(**kwargs)
-        context["datas"] = (Acompanhamento.objects
-                            .annotate(ano=ExtractYear('data_inicial'), mes=ExtractMonth('data_inicial'))
-                            .values_list('ano', 'mes')
-                            .distinct()
-                            .order_by('ano', 'mes'))
-
-        context["lista_processador"] = Acompanhamento.objects.order_by("id_processador").all().distinct(
-            "id_processador__identificacao")
+        context = super().get_context_data(**kwargs)
+        context['form'] = AcompanhamentoFilterForm(self.request.GET or None)
         return context
+
 
     def get_queryset(self):
         instancia = super().get_queryset().all()
-        data = None
-        if self.request.GET.get("data"):
-            data = self.request.GET.get("data").split("/")
-            if data[0]:
-                instancia = instancia.filter(data_inicial__year=data[0])
-            if data[1]:
-                instancia = instancia.filter(data_inicial__month=data[1])
+        ano = self.request.GET.get('ano')
+        mes = self.request.GET.get('mes')
         processador = self.request.GET.get("processador")
 
+        if ano:
+            instancia = instancia.filter(data_inicial__year=ano)
+        if mes:
+            instancia = instancia.filter(data_inicial__month=mes)
         if processador:
             instancia = instancia.filter(id_processador=processador)
+
 
         return instancia
 
@@ -76,5 +68,11 @@ class AcompanhamentoVisualizacaoView(LoginRequiredMixin, TemplateView):
 
 class AcompanhamentoRelatorioView(LoginRequiredMixin, ListView):
     template_name = "acompanhamento/acompanhamento_report.html"
+    model = Acompanhamento
+    queryset = Acompanhamento.objects.all()
+
+
+class AcompanhamentoDetailView(LoginRequiredMixin, DetailView):
+    template_name = "acompanhamento/acompanhamento_detail.html"
     model = Acompanhamento
     queryset = Acompanhamento.objects.all()

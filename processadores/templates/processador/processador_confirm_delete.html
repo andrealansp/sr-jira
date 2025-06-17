@@ -1,16 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container-content expandido" id="conteudo">
-    <h2>
-    Tem certeza que deseja apagar o processador '{{object.identificacao}}?
-    </h2>
-    <form action="" method="post">
-        {% csrf_token %}
-        <input type="submit" value="Sim, tenho certeza" class="sucesso"/>
-        <input class="problema" type="reset" value="Não quero apagar mais"
-               onClick="history.back()" />
-    </form>
-</div>
+    <div class="container-content expandido" id="conteudo">
+        <div class="row custom_header m-2">
+            <div class="col">
+                <h3>
+                    Confirmar Exclusão !
+                </h3>
+            </div>
+        </div>
+        <div class="row m-2 principal">
+            <div class="col">
+                <h4>Tem certeza que deseja apagar o termo {{ object.id_processador.identificacao }}?</h4>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Sim, tenho certeza" class="btn btn-danger"/>
+                    <input class="btn btn-primary" type="reset" value="Não quero apagar mais"
+                           onClick="history.back()"/>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
 {% endblock content %}

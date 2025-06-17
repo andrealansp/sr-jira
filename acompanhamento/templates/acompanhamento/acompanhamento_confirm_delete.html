@@ -1,15 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="row custom_header my-2">
+    <div class="row custom_header m-2">
         <div class="col">
-            <h1>Confirmar de Exclusão!</h1>
+            <h3>Confirmar de Exclusão!</h3>
         </div>
     </div>
-    <div class="row principal">
+    <div class="row m-2 principal">
         <div class="col">
-            <h2>
-                Tem certeza que deseja apagar o termo {{ object.id_processador.identificacao }}
-            </h2>
+                <h4>Tem certeza que deseja apagar a ocorrência do {{ object.id_processador.identificacao }} no dia {{ object.data_inicial }}?</h4>
             <form action="" method="post">
                 {% csrf_token %}
                 <input type="submit" value="Sim, tenho certeza" class="btn btn-primary btn-sm"/>

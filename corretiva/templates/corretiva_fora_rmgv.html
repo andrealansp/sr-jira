@@ -1,58 +1,58 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="col-11 m-3 p-3">
-    <div class="principal">
-        <h3>Lista de Chamados Corretivos FORA DIVISA</h3>
-        <nav class="navbar navbar-dark navbar-expand-lg bg-black">
-			<div class="container-fluid">
-				<div class="navbar-nav" >
-					<a class="nav-link" href="{% url 'preventivas' %}">Retornar</a>
-					<a
-						class="nav-link"
-						href="{% url 'fora_divisa_export' di=data_inicial df=data_final %}"
-						>Exportar Excel</a
-					>
-				</div>
-			</div>
-		</nav>
-
-        <table class="table table-bordered table-sm">
-            <thead>
-            <tr>
-                <th>Chave</th>
-                <th>Sla de Atendimento</th>
-                <th>Sla de Solução</th>
-                <th>Local de Atendimento</th>
-                <th>Prioridade</th>
-                <th>Resumo</th>
-                <th>Aberto Por</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for k,v in chamados.items %}
-            <tr>
-                <td>{{v.key}}</td>
-                {% if v.fields.customfield_10062.completedCycles.0.breached == True %}
-                <td>FORA DO PRAZO</td>
-                {% else %}
-                <td>NO PRAZO</td>
-                {% endif %}
-
-                {% if v.fields.customfield_10063.completedCycles.0.breached == True %}
-                <td>FORA DO PRAZO</td>
-                {% else %}
-                <td>NO PRAZO</td>
-                {% endif %}
-
-                <td>{{v.fields.customfield_10060.child.value}}</td>
-                <td>{{v.fields.priority}}</td>
-                <td>{{v.fields.summary}}</td>
-                <td>{{v.fields.reporter.displayName}}</td>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+    <div class="row m-2 custom_header">
+        <div class="col">
+            <h3>Lista de Chamados Corretivos RMGV</h3>
+        </div>
     </div>
-</div>
+    <div class="row principal rounded-3 m-2">
+        <div class="col">
+            <a class="btn btn-danger btn-sm" href="{% url 'preventivas' %}">Retornar</a>
+            <a class="btn btn-primary btn-sm"
+               href="{% url 'rmgv_export' di=data_inicial df=data_final %}"
+            >Exportar Excel</a>
+        </div>
+    </div>
+
+    <div class="row m-2 principal">
+        <div class="col">
+            <table class="table table-bordered table-sm">
+                <thead>
+                <tr>
+                    <th>Chave</th>
+                    <th>Sla de Atendimento</th>
+                    <th>Sla de Solução</th>
+                    <th>Local de Atendimento</th>
+                    <th>Prioridade</th>
+                    <th>Resumo</th>
+                    <th>Aberto Por</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for k,v in chamados.items %}
+                    <tr>
+                        <td>{{ v.key }}</td>
+                        {% if v.fields.customfield_10062.completedCycles.0.breached == True %}
+                            <td>FORA DO PRAZO</td>
+                        {% else %}
+                            <td>NO PRAZO</td>
+                        {% endif %}
+
+                        {% if v.fields.customfield_10063.completedCycles.0.breached == True %}
+                            <td>FORA DO PRAZO</td>
+                        {% else %}
+                            <td>NO PRAZO</td>
+                        {% endif %}
+
+                        <td>{{ v.fields.customfield_10060.child.value }}</td>
+                        <td>{{ v.fields.priority }}</td>
+                        <td>{{ v.fields.summary }}</td>
+                        <td>{{ v.fields.reporter.displayName }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

@@ -4,40 +4,34 @@
 {% block content %}
     <div class="row custom_header m-2">
         <div class="col">
-            <h1>Lista de ocorrências com processadores</h1>
+            <h3>Lista de ocorrências com processadores</h3>
         </div>
     </div>
     <div class="row principal m-2">
-        <div class="col-2">
+        <div class="col-3">
             <input class="btn btn-danger btn-sm" type="reset" value="Retornar"
                    onClick="history.back()"/>
             <a href="{% url 'acompanhamento:registrar' %}" class="btn btn-primary btn-sm">Registrar
                 Ocorrência</a>
         </div>
 
-        <div class="col-6">
-            <form id="filtro">
+        <div class="col-9">
+            <form method="get">
                 <div class="row">
                     <div class="col">
-                        <select name="data" id="SelecionaData" class="form-control form-control-sm">
-                            <option value="">Selecione o Ano</option>
-                            {% for data in datas %}
-                                <option value="{{ data.0 }}/{{ data.1 }}"
-                                        class="option">{{ data.0 }}/{{ data.1 }}</option>
-                            {% endfor %}
-                        </select>
+                        {% bootstrap_field form.ano size="sm" show_label='skip' %}
                     </div>
                     <div class="col">
-                        <select name="processador" id="pesquisa-processador" class="form-control form-control-sm">
-                            <option value="">Selecione o Processador</option>
-                            {% for p in lista_processador %}
-                                <option value="{{ p.id_processador_id }}">{{ p.id_processador }}</option>
-                            {% endfor %}
-                        </select>
+                        {% bootstrap_field form.mes size="sm" show_label='skip' %}
                     </div>
                     <div class="col">
-                        <input type="submit" class="btn btn-primary btn-sm">
+                        {% bootstrap_field form.processador size="sm" show_label="skip" %}
                     </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary btn-sm">Filtrar</button>
+                        <button type="reset" class="btn btn-danger btn-sm">Limpar</button>
+                    </div>
+
                 </div>
             </form>
         </div>
@@ -86,12 +80,14 @@
                             |
                             <a href="{% url 'acompanhamento:deletar' pk=a.id %}"
                                class="btn btn-outline-danger btn-sm"><i class="bi bi-trash-fill"></i></a>
+                            |  <a href="{% url 'acompanhamento:detalhe' pk=a.id %}"
+                               class="btn btn-outline-warning btn-sm"><i class="bi bi-search"></i></a>
                         </td>
                         <td>{{ a.id_processador.identificacao }}</td>
                         <td>{{ a.data_inicial }}</td>
                         <td>{{ a.data_final }}</td>
-                        <td>{{ a.problema_apresentado }}</td>
-                        <td>{{ a.acao_tomada }}</td>
+                        <td>{{ a.problema_apresentado|truncatechars:20 }}</td>
+                        <td>{{ a.acao_tomada|truncatechars:20 }}</td>
                         <td>{{ a.get_status_sla_display }}</td>
                         <td>{{ a.duracao }}</td>
                     </tr>

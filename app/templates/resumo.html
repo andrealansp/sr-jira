@@ -1,9 +1,9 @@
 {% extends 'base.html' %}{% load static %} {% block content %}
     <div class="row justify-content-center">
-        <div class="col-10">
+        <div class="col-11">
             <div class="corpo-conteudo">
                 <div class="cabecalho1 custom_header">
-                    <h2>Preventivas</h2>
+                    <h3>Preventivas</h3>
                 </div>
                 <div class="principal">
                     {% if estatistica %}
@@ -44,29 +44,23 @@
                     {% endif %}
                 </div>
                 <div class="cabecalho2 custom_header">
-                    <h2>Corretivas</h2>
+                    <h3>Corretivas</h3>
                 </div>
-                <div class="rmgv">
-                    <h3>RMGV / DIVISA</h3>
-                    <p>
-                        Gerar tabela com os chamados de corretivas:
-                        <input
-                                type="button"
-                                value="Acessar"
-                                class="btn btn-primary btn-sm"
-                                onclick='window.location.href="/corretivas/rmgv"'/>
-                    </p>
+                <div class="rmgv text-center">
+                    <h5>RMGV / DIVISA</h5>
+                    <input
+                            type="button"
+                            value="Gerar Lista de Corretivas RMGV/DIVISA"
+                            class="btn btn-primary"
+                            onclick='window.location.href="/corretivas/rmgv"'/>
                 </div>
-                <div class="fora-rmgv">
-                    <h3>FORA RMGV</h3>
-                    <p>
-                        Gerar tabela com os chamados de corretivas:
-                        <input
-                                type="button"
-                                value="Acessar"
-                                class="btn btn-primary btn-sm"
-                                onclick='window.location.href="/corretivas/fora_divisa"'/>
-                    </p>
+                <div class="fora-rmgv text-center">
+                    <h5>FORA RMGV</h5>
+                    <input
+                            type="button"
+                            value="Gerar Tabela de Corretiva FORA RMGV"
+                            class="btn btn-primary"
+                            onclick='window.location.href="/corretivas/fora_divisa"'/>
                 </div>
             </div>
         </div>

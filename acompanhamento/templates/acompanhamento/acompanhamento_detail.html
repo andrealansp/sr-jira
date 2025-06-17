@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <div class="row custom_header m-2">
+        <div class="col">
+            <h3>Relatório de Ocorrências</h3>
+        </div>
+    </div>
+    <div class="row principal m-2">
+        <div class="col">
+            <input class="btn btn-danger btn-sm" type="reset" value="Retornar"
+                   onClick="history.back()"/>
+        </div>
+    </div>
+    <div class="row m-2 principal">
+        <div class="col">
+                <h5>Processador: {{ object.id_processador.identificacao }} -
+                    <span>SLA: {{ object.get_status_sla_display }}</span>
+                </h5>
+                <hr>
+                <p><b>Período da Ocorrência:</b> {{ object.data_inicial }} à {{ object.data_final }} -
+                    Duração: {{ object.duracao }}
+                </p>
+                <p><b>Problema Apresentado:</b> <br> {{ object.problema_apresentado }}</p>
+                <p><b>Ação Tomada:</b> <br> {{ object.acao_tomada }}</p>
+        </div>
+    </div>
+
+{% endblock %}

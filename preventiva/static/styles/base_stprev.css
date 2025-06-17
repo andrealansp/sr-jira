@@ -123,8 +123,12 @@ body {
     align-self: stretch;
     background-color: #172031;
     border-radius: 10px;
-    padding: 10px;
+    padding: 5px;
     color: white;
-    border-bottom: 5px white solid;
+    border-bottom: 2px white solid;
     font-size: 0.7em;
+}
+.custom_header h3{
+    color: white;
+    padding: 0;
 }
