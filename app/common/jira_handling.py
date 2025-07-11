@@ -33,17 +33,14 @@ class JiraHandling:
         """
         match escolha:
             case "perkons-preventivas-pcls":
-                self.__jql = f"""assignee in (currentUser()) AND project = CIES AND issuetype = "Preventiva PCL" AND 
-                "Request Type" in ("PREVENTIVA PONTO DE COLETA (CIES)") AND status = Resolved AND resolved >= 
-                {dt_inicial} AND resolved <= {dt_final}  ORDER BY cf[10139] ASC, cf[10116] DESC, 
-                 created ASC, cf[10060] ASC, creator DESC, issuetype ASC, timespent DESC, cf[10061] DESC"""
+                self.__jql = f"""assignee IN (currentUser()) AND project = CIES AND "Request Type"
+                 IN ("PREVENTIVA PONTO DE COLETA (CIES)") AND resolved >= "2025-03-01" AND resolved <= "2025-04-01" 
+                 AND priority = Preventiva AND status = Resolved AND type = "Preventiva PCL" ORDER BY key ASC"""
 
             case "perkons-preventivas-salas":
                 self.__jql = f"""assignee in (currentUser()) AND project = CIES AND issuetype = "Preventiva Salas"  
                 AND "Request Type" in ("PREVENTIVAS SALA DE CONTROLE E OPERAÇÃO E PRODEST (CIES)") AND 
-                status = Resolved AND resolved >= {dt_inicial} AND resolved <= {dt_final} ORDER 
-                BY cf[10139] ASC, cf[10116] DESC, created ASC, cf[10060] ASC, creator DESC, issuetype ASC,
-                timespent DESC, cf[10061] DESC"""
+                status = Resolved AND resolved >= {dt_inicial} AND resolved <= {dt_final} ORDER BY key ASC"""
 
             case "perkons-corretivas-rmgv":
                 self.__jql = f"""project = CIES AND issuetype IN standardIssueTypes() AND status = Resolved 
@@ -64,11 +61,8 @@ class JiraHandling:
                 DESC, cf[10061] DESC"""
 
             case "velsis-preventivas-balancas":
-                self.__jql = f"""created >= {dt_inicial} AND created <= {dt_final} AND project = CIES 
-                AND issuetype = "Preventiva Balança" AND status = Resolved AND 
-                reporter = 712020:3f4d8c9e-ec2e-4d7a-afaa-9655498b3d4b ORDER BY cf[10135] DESC, cf[10121] DESC, 
-                cf[10130] ASC, cf[10124] DESC, created ASC, cf[10060] ASC, creator DESC, issuetype ASC, 
-                timespent DESC, cf[10061] DESC"""
+                self.__jql = f"""project = CIES AND assignee = 625768b25d1e700069aef70c AND type = "Preventiva Balança" 
+                AND status = Resolved AND created >= {dt_inicial} AND created <= {dt_final} ORDER BY created DESC"""
 
             case "perkons-preventivas-pcls-mes":
                 self.__jql = """assignee in (currentUser()) AND project = CIES And created >= startOfMonth() 
@@ -82,11 +76,14 @@ class JiraHandling:
         :param fields: Lista de Campos para retorno do json
         :return: ResultList (Tipo personalizado da classe Jira)
         """
-        issues = cast(
-            ResultList[Issue],
-            jirapt.search_issues(self.__jira, self.__jql, 4, fields=fields),
-        )
-        return issues
+        try:
+            issues = cast(
+                ResultList[Issue],
+                jirapt.search_issues(self.__jira, self.__jql, 4, fields=fields),
+            )
+            return issues
+        except Exception as e:
+            print(e.__str__())
 
     def getissues(self):
         try:
@@ -248,4 +245,9 @@ class JiraHandling:
 
 
 if __name__ == "__main__":
-    ...
+    jira = JiraHandling(os.environ["URL"], os.environ["USER_JIRA"], os.environ["API_TOKEN"])
+    jira.set_jql("perkons-preventivas-pcls","2025-06-01", dt_final="2025-07-01")
+    chamados = jira.getissues()
+    for chamado in chamados:
+        print(chamado)
+
