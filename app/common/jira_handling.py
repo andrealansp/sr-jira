@@ -34,7 +34,7 @@ class JiraHandling:
         match escolha:
             case "perkons-preventivas-pcls":
                 self.__jql = f"""assignee IN (currentUser()) AND project = CIES AND "Request Type"
-                 IN ("PREVENTIVA PONTO DE COLETA (CIES)") AND resolved >= "2025-03-01" AND resolved <= "2025-04-01" 
+                 IN ("PREVENTIVA PONTO DE COLETA (CIES)") AND resolved >= {dt_inicial} AND resolved <= {dt_final} 
                  AND priority = Preventiva AND status = Resolved AND type = "Preventiva PCL" ORDER BY key ASC"""
 
             case "perkons-preventivas-salas":
@@ -48,8 +48,7 @@ class JiraHandling:
                 625768b25d1e700069aef70c, qm:ba8a45d0-c8a8-4107-98fe-bfc59d6bde38:70e33655-0037-42f7-94ef-d8503e158e39,
                 currentUser()) AND type IN ("Prioridade 1", "Prioridade 2", "Prioridade 3") AND resolved >= 
                 {dt_inicial} AND resolved <= {dt_final} AND "equipamentos[select list (cascading)]" IN 
-                cascadeOption(10110) ORDER BY created ASC, cf[10060] ASC, creator DESC, issuetype ASC, 
-                timespent DESC, cf[10061] DESC"""
+                cascadeOption(10110) ORDER BY created ASC"""
 
             case "perkons-corretivas-fora-divisa":
                 self.__jql = f"""project = CIES AND issuetype IN standardIssueTypes() AND status = Resolved AND 
@@ -57,8 +56,7 @@ class JiraHandling:
                 625768b25d1e700069aef70c, qm:ba8a45d0-c8a8-4107-98fe-bfc59d6bde38:70e33655-0037-42f7-94ef-d8503e158e39, 
                 currentUser()) AND type IN ("Prioridade 1", "Prioridade 2", "Prioridade 3") AND resolved >=
                 {dt_inicial} AND resolved <= {dt_final} AND "equipamentos[select list (cascading)]" 
-                IN cascadeOption(10113) ORDER BY created ASC, cf[10060] ASC, creator DESC, issuetype ASC, timespent 
-                DESC, cf[10061] DESC"""
+                IN cascadeOption(10113) ORDER BY created ASC"""
 
             case "velsis-preventivas-balancas":
                 self.__jql = f"""project = CIES AND assignee = 625768b25d1e700069aef70c AND type = "Preventiva Balança" 
@@ -154,6 +152,7 @@ class JiraHandling:
         issues = self.getissues()
         list_corrective: list = []
         for corrective in issues.values():
+            print(corrective)
             list_corrective.append(
                 {
                     "chave": corrective.key,
@@ -246,8 +245,8 @@ class JiraHandling:
 
 if __name__ == "__main__":
     jira = JiraHandling(os.environ["URL"], os.environ["USER_JIRA"], os.environ["API_TOKEN"])
-    jira.set_jql("perkons-preventivas-pcls","2025-06-01", dt_final="2025-07-01")
-    chamados = jira.getissues()
+    jira.set_jql("perkons-corretivas-rmgv","2025-07-01", dt_final="2025-08-01")
+    chamados = jira.get_statistic_corrective()
     for chamado in chamados:
         print(chamado)
 
