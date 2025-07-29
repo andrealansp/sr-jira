@@ -32,4 +32,5 @@ urlpatterns = [
                   path("cameras/", include("cameras.urls")),
                   path("processadores/", include("processadores.urls")),
                   path("acompanhamento/", include("acompanhamento.urls")),
+                  path("relatorios/", include("relatorios.urls")),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

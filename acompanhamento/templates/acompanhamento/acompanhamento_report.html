@@ -1,19 +1,56 @@
-{% extends "base.html" %}
+{% extends "base_relatorio.html" %}
 {% load static %}
 {% load django_bootstrap5 %}
 {% block content %}
+<div class="container">
     <div class="row my-2">
-        <div class="col">
-            <div class="principal">
-            <h1>Relatório de Ocorrências</h1>
-                {% for a in object_list %}
-                    <h5>Processador: {{ a.id_processador.identificacao }} - <span>SLA: {{ a.get_status_sla_display }}</span></h5>
-                    <hr>
-                    <p><b>Período da Ocorrência:</b> {{ a.data_inicial }} à {{ a.data_final }} - Duração: {{ a.duracao }}</p>
-                    <p><b>Problema Apresentado:</b> <br> {{ a.problema_apresentado }}</p>
-                    <p><b>Ação Tomada:</b> <br> {{ a.acao_tomada }}</p>
-                {% endfor %}
+        <div class="col" style="background-color:#eee;">
+            <div class="row">
+                <div class="col-1">
+                    <img src="{% static 'images/moss.png' %}" class="img-fluid m-1" alt="Logo da Prefeitura de Mossoró">
+                </div>
+                <div class="col-10 text-center">
+                    <h3>Relatório de Ocorrências do mês de Junho </h3>
+                </div>
+                <div class="col-1">
+                    <img src="{% static 'images/logo1.png' %}" class="img-fluid m-1" alt="Logo da Prefeitura de Mossoró">
+                </div>
             </div>
+            {% for acompanhamento in object_list %}
+            <div class="row">
+                <div class="col">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Processador: {{acompanhamento.id_processador.identificacao}} -
+                                <span>SLA: {{acompanhamento.get_status_sla_display}}</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <b> Período da Ocorrência:</b> {{acompanhamento.data_inicial}} à
+                                {{acompanhamento.data_final}} -
+                                Duração: {{acompanhamento.duracao}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Problema Apresentado:</b> <br> {{ acompanhamento.problema_apresentado }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Ação Tomada:</b> <br> {{ acompanhamento.acao_tomada }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
+</div>
+
 {% endblock %}

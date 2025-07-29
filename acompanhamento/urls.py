@@ -11,5 +11,4 @@ urlpatterns = [
     path('deletar/<pk>', views.AcompanhamentoDeleteView.as_view(), name="deletar"),
     path('detalhe/<pk>', views.AcompanhamentoDetailView.as_view(), name="detalhe"),
     path('relatorio/<int:year>/<int:month>', views.AcompanhamentoRelatorioView.as_view(), name="relatorio"),
-    path("visualizar/<int:year>/<int:month>", views.AcompanhamentoVisualizacaoView.as_view(), name="visualizar"),
 ]

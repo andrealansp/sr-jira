@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+<div class="row custom_header m-2">
+    <div class="col">
+        <h3>Acompanhamento de Uptime dos Roteadores dos Sites com Painéis Solares</h3>
+    </div>
+</div>
+<div class="row m-2 principal">
+    <div class="col-1">
+        <input class="btn btn-danger btn-sm" type="reset" value="Retornar"
+               onClick="history.back()"/>
+    </div>
+    <div class="col-11">
+        <form method="get">
+            <div class="row">
+                <div class="col">
+                    {% bootstrap_field form.ponto size="sm" show_label='skip' %}
+                </div>
+                <div class="col">
+                    {% bootstrap_field form.data_registro size="sm" show_label='skip' %}
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary btn-sm">Filtrar</button>
+                    <button type="reset" class="btn btn-danger btn-sm">Limpar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row m-2 principal">
+    <div class="col">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>
+                    Ponto
+                </th>
+                <th>
+                    Uptime
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Data do Registro
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for p in paineis %}
+            <tr>
+                <td>
+                    {{p.ponto}}
+                </td>
+                <td>
+                    {{p.uptime}}
+                </td>
+                <td>
+                    {{p.status}}
+                </td>
+                <td>
+                    {{p.data_registro}}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <nav class="nav">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                    <li class="page-item"><a class="page-link"
+                                             href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    </li>
+                    {% endif %}
+                    <li class="page-item page-link">Page {{ page_obj.number }}
+                        of {{ page_obj.paginator.num_pages }}.
+                        {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link"
+                                             href="?page={{ page_obj.next_page_number }}">next</a>
+                    </li>
+                    <li class="page-item"><a class="page-link"
+                                             href="?page={{ page_obj.paginator.num_pages }}">last
+                        &raquo;</a></li>
+                    {% endif %}
+                </ul>
+                </span>
+            </nav>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

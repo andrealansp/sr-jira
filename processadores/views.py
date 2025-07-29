@@ -41,5 +41,3 @@ class ProcessadorDeleteView(DeleteView):
     model = Processador
     queryset = Processador.objects.all()
     success_url = reverse_lazy("processadores:listar")
-
-

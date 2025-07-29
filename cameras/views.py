@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from .models import Cameras
-from .forms import CameraForm
+from .forms import CameraForm, CameraFilterForm
 
 
 class CameraListView(LoginRequiredMixin, ListView):
@@ -39,6 +39,7 @@ class CameraListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         cameras = self.get_queryset()
         context["qtd_cameras"] = cameras.count()
+        context["form"] = CameraFilterForm(self.request.GET or None)
         return context
 
 

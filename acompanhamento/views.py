@@ -41,7 +41,6 @@ class AcompanhamentoCreateView(LoginRequiredMixin, CreateView):
     form_class = AcompanhamentoForm
     success_url = reverse_lazy("acompanhamento:listar")
 
-
 class AcompanhamentoUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "acompanhamento/acompanhamento_form.html"
     template_name_suffix = "_update"
@@ -55,15 +54,6 @@ class AcompanhamentoDeleteView(LoginRequiredMixin, DeleteView):
     model = Acompanhamento
     queryset = Acompanhamento.objects.all()
     success_url = reverse_lazy("acompanhamento:listar")
-
-
-class AcompanhamentoVisualizacaoView(LoginRequiredMixin, TemplateView):
-    template_name = "acompanhamento/acompanhamento_visualizacao.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(AcompanhamentoVisualizacaoView, self).get_context_data(**kwargs)
-        context["acompanhamento"] = Acompanhamento.objects.filter(data_inicial__month=self.kwargs['month']).all()
-        return context
 
 
 class AcompanhamentoRelatorioView(LoginRequiredMixin, ListView):

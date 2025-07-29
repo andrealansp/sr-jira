@@ -94,6 +94,20 @@
                                 </li>
                             </ul>
                         </li>
+                        {# Fim do Dropdown Relatórios #}
+                        <li class="nav-item dropdown">
+                            <a
+                                    class="nav-link dropdown-toggle"
+                                    href="#"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                Relatórios
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href={% url "relatorios:paineis" %}>Paineis Solares</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <form class="d-flex px-3" action="{% url 'logout' %}" method="post" id="logout">
                         {% csrf_token %}

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "cameras",
     "preventiva",
     "processadores",
+    "relatorios"
 
 ]
 
