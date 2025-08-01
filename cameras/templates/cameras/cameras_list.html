@@ -6,7 +6,7 @@
 </div>
 <div class="row m-2 principal">
     <div class="col-1">
-        <input class="btn btn-danger btn-sm" type="reset" value="Retornar"
+        <input class="btn bg_warning btn-sm" type="reset" value="Retornar"
                onClick="history.back()"/>
     </div>
     <div class="col-11">
@@ -27,7 +27,7 @@
                 <div class="col">
                     <button
                             type="submit"
-                            class="btn btn-primary btn-sm">
+                            class="btn btn-sm bg_primary">
                         Pesquisar
                     </button>
                 </div>
@@ -38,10 +38,10 @@
 <div class="row principal  m-2">
     <div class="col table-responsive">
 
-        <table class="table text-nowrap table-bordered">
+        <table class="table table-sm text-nowrap table-bordered">
             <thead>
             <tr>
-                <th colspan="11">Quantidade de câmeras: {{ qtd_cameras }}</th>
+                <th colspan="11" class="table_header_information">Quantidade de câmeras: {{ qtd_cameras }}</th>
             </tr>
             <tr>
                 <th scope="col">Ações</th>
@@ -63,13 +63,13 @@
             <tr>
                 <td><a class="btn btn-sm btn-outline-info d-inline-block"
                        href="{% url "cameras:update" pk=c.id %}" target="_blank"><i
-                        class="bi bi-pen-fill"></i></a>
+                        class="bi bi-pen-fill"></i></a> |
                     <a class="btn btn-sm btn-outline-danger d-inline-block"
                        href="{% url "cameras:delete" pk=c.id %}" target="_self"><i
-                            class="bi bi-eraser-fill"></i></a>
+                            class="bi bi-eraser-fill"></i></a> |
                     <a class="btn btn-sm btn-outline-success d-inline-block"
                        href="http://{{ c.ip }}:{{ c.porta }}" target="_blank"><i
-                            class="bi bi-browser-chrome"></i></a>
+                            class="bi bi-browser-chrome"></i></a> |
                     <a class="btn btn-sm btn-outline-success d-inline-block"
                        href="http://{{ c.ip }}:9080" target="_blank"><i
                             class="bi bi-arrow-clockwise"></i></a>

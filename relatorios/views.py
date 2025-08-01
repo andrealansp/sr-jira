@@ -6,8 +6,6 @@ from django.views.generic import TemplateView, ListView
 from relatorios.models import Painel
 from .forms import PaineisFilterForm
 
-
-# Create your views here.
 class RelatoriosListView(LoginRequiredMixin,TemplateView):
     template_name = 'relatorios.html'
 
@@ -15,7 +13,7 @@ class RelatorioPaineisView(LoginRequiredMixin,ListView):
     template_name = 'paineis.html'
     context_object_name = 'paineis'
     model = Painel
-    paginate_by = 50
+    paginate_by = 150
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

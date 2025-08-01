@@ -9,9 +9,9 @@
     </div>
     <div class="row principal m-2">
         <div class="col-3">
-            <input class="btn btn-danger btn-sm" type="reset" value="Retornar"
+            <input class="btn btn-sm bg_warning"  type="reset" value="Retornar"
                    onClick="history.back()"/>
-            <a href="{% url 'acompanhamento:registrar' %}" class="btn btn-primary btn-sm">Registrar
+            <a href="{% url 'acompanhamento:registrar' %}" class="btn btn-sm bg_primary">Registrar
                 Ocorrência</a>
         </div>
 
@@ -28,8 +28,8 @@
                         {% bootstrap_field form.processador size="sm" show_label="skip" %}
                     </div>
                     <div class="col">
-                        <button type="submit" class="btn btn-primary btn-sm">Filtrar</button>
-                        <button type="reset" class="btn btn-danger btn-sm">Limpar</button>
+                        <button type="submit" class="btn btn-sm bg_primary">Filtrar</button>
+                        <button type="reset" class="btn btn-sm bg_warning">Limpar</button>
                     </div>
 
                 </div>
@@ -58,7 +58,7 @@
                         {% endif %}
                 </ul>
             </nav>
-            <table class="table text-nowrap table-bordered">
+            <table class="table table-sm text-nowrap table-bordered">
                 <thead>
                 <tr>
                     <th scope="col">Ações</th>

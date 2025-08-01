@@ -17,7 +17,7 @@
 <body>
 <main class="container-fluid inter-400">
     <div class="row">
-        <nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #172031" ;>
+        <nav class="navbar navbar-light navbar-expand-lg custom_bg ">
             <div class="container-fluid">
                 <a class="navbar-brand px-3" href="#">
                     <img src='{% static "images/logo2.png" %}' alt="Logo Perkons" height="64" width="64"
@@ -36,8 +36,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href={% url "preventivas" %}
-                            >Resumo</a>
+                            <a class="nav-link" aria-current="page" href={% url "preventivas" %}>
+                            <i class="bi bi-speedometer"></i> Dashboard</a>
                         </li>
                         {# Fim do botão Resumo #}
                         <li class="nav-item dropdown">
@@ -47,6 +47,7 @@
                                     role="button"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false">
+                                <i class="bi bi-list-check"></i>
                                 Preventiva
                             </a>
                             <ul class="dropdown-menu">
@@ -68,6 +69,7 @@
                                     role="button"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false">
+                                <i class="bi bi-camera-video"></i>
                                 Câmeras
                             </a>
                             <ul class="dropdown-menu">
@@ -85,6 +87,7 @@
                                     role="button"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false">
+                                <i class="bi bi-radar"></i>
                                 Processadores
                             </a>
                             <ul class="dropdown-menu">
@@ -102,6 +105,7 @@
                                     role="button"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false">
+                                <i class="bi bi-file-earmark-pdf"></i>
                                 Relatórios
                             </a>
                             <ul class="dropdown-menu">
@@ -111,9 +115,9 @@
                     </ul>
                     <form class="d-flex px-3" action="{% url 'logout' %}" method="post" id="logout">
                         {% csrf_token %}
-                        <a class="btn btn-primary" href="javascript:{}"
+                        <a class="btn bg_primary btn-sm" href="javascript:{}"
                            onclick="document.getElementById('logout').submit();">
-                            <span class="link-name">Sair do Sistema</span>
+                            <span class="link-name"><i class="bi bi-door-open"></i> Sair do Sistema</span>
                         </a>
                     </form>
                 </div>

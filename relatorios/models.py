@@ -11,4 +11,4 @@ class Painel(models.Model):
     class Meta:
         verbose_name = "Painel"
         verbose_name_plural = "Painéis"
-        ordering = ['ponto',"data_registro"]
+        ordering = ['ponto',"-data_registro"]

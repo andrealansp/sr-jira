@@ -4,12 +4,12 @@
 {% block content %}
     <div class="row custom_header m-2">
         <div class="col">
-            <h1>Cadastro de ocorrência</h1>
+            <h3>Cadastro de ocorrência</h3>
         </div>
     </div>
     <div class="row principal m-2">
         <div class="col">
-            <input class="btn btn-danger btn-sm" type="reset" value="Retornar"
+            <input class="btn btn-sm bg_warning" type="reset" value="Retornar"
                    onClick="history.back()"/>
             <hr>
             <form method="post">
@@ -35,8 +35,8 @@
                     </div>
                 </div>
                 {% bootstrap_form_errors form %}
-                {% bootstrap_button button_type="submit" button_class="btn-primary" size="sm" content="Enviar" %}
-                {% bootstrap_button button_type="reset" button_class="btn-danger" size="sm" content="Cancelar" %}
+                {% bootstrap_button button_type="submit" button_class="btn btn-sm bg_primary" size="sm" content="Enviar" %}
+                {% bootstrap_button button_type="reset" button_class="btn btn-sm bg_warning" size="sm" content="Cancelar" %}
             </form>
         </div>
     </div>

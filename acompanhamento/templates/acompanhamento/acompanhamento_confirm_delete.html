@@ -10,8 +10,8 @@
                 <h4>Tem certeza que deseja apagar a ocorrência do {{ object.id_processador.identificacao }} no dia {{ object.data_inicial }}?</h4>
             <form action="" method="post">
                 {% csrf_token %}
-                <input type="submit" value="Sim, tenho certeza" class="btn btn-primary btn-sm"/>
-                <input class="btn btn-danger btn-sm" type="reset" value="Não quero apagar mais"
+                <input type="submit" value="Sim, tenho certeza" class="btn bg_primary btn-sm"/>
+                <input class="btn bg_danger btn-sm" type="reset" value="Não quero apagar mais"
                        onClick="history.back()"/>
             </form>
         </div>

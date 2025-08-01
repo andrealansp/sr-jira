@@ -1,16 +1,20 @@
 {% extends 'base.html' %}{% load static %} {% block content %}
-    <div class="row justify-content-center">
-        <div class="col-11">
-            <div class="corpo-conteudo">
-                <div class="cabecalho1 custom_header">
-                    <h3>Preventivas</h3>
-                </div>
-                <div class="principal">
-                    {% if estatistica %}
-                        <div>
-                            <div class="spinner-border text-primary center" id="spinner" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
+<div class="row justify-content-center">
+    <div class="col-11">
+        <div class="corpo-conteudo">
+            <div class="cabecalho1 custom_header">
+                <h3>Preventivas</h3>
+            </div>
+            <div class="principal">
+                {% if estatistica %}
+                <div class="row justify-content-center">
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status" id="spinner">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
                             <table class="table table-sm table-bordered" id="tbl_resumo">
                                 <thead>
                                 <tr>
@@ -39,32 +43,34 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
                     {% else %}
-                        <h5>Os Chamados de Preventivas não foram abertos</h5>
+                    <h5>Os Chamados de Preventivas não foram abertos</h5>
                     {% endif %}
                 </div>
-                <div class="cabecalho2 custom_header">
-                    <h3>Corretivas</h3>
-                </div>
-                <div class="rmgv text-center">
-                    <h5>RMGV / DIVISA</h5>
-                    <input
-                            type="button"
-                            value="Gerar Lista de Corretivas RMGV/DIVISA"
-                            class="btn btn-primary"
-                            onclick='window.location.href="/corretivas/rmgv"'/>
-                </div>
-                <div class="fora-rmgv text-center">
-                    <h5>FORA RMGV</h5>
-                    <input
-                            type="button"
-                            value="Gerar Tabela de Corretiva FORA RMGV"
-                            class="btn btn-primary"
-                            onclick='window.location.href="/corretivas/fora_divisa"'/>
-                </div>
+            </div>
+            <div class="cabecalho2 custom_header">
+                <h3>Corretivas</h3>
+            </div>
+            <div class="rmgv text-center">
+                <h5>RMGV / DIVISA</h5>
+                <input
+                        type="button"
+                        value="Gerar Lista de Corretivas RMGV/DIVISA"
+                        class="btn bg_primary btn-sm"
+                        onclick='window.location.href="/corretivas/rmgv"'/>
+            </div>
+            <div class="fora-rmgv text-center">
+                <h5>FORA RMGV</h5>
+                <input
+                        type="button"
+                        value="Gerar Tabela de Corretiva FORA RMGV"
+                        class="btn bg_primary btn-sm"
+                        onclick='window.location.href="/corretivas/fora_divisa"'/>
             </div>
         </div>
     </div>
-    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
-    <script src="{% static 'scripts/resumo.js' %}"></script>
+</div>
+<script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+<script src="{% static 'scripts/resumo.js' %}"></script>
 {% endblock %}

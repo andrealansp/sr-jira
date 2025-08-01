@@ -152,7 +152,6 @@ class JiraHandling:
         issues = self.getissues()
         list_corrective: list = []
         for corrective in issues.values():
-            print(corrective)
             list_corrective.append(
                 {
                     "chave": corrective.key,

@@ -8,7 +8,7 @@
 </div>
 <div class="row m-2 principal">
     <div class="col-1">
-        <input class="btn btn-danger btn-sm" type="reset" value="Retornar"
+        <input class="btn bg_warning btn-sm" type="reset" value="Retornar"
                onClick="history.back()"/>
     </div>
     <div class="col-11">
@@ -21,8 +21,8 @@
                     {% bootstrap_field form.data_registro size="sm" show_label='skip' %}
                 </div>
                 <div class="col">
-                    <button type="submit" class="btn btn-primary btn-sm">Filtrar</button>
-                    <button type="reset" class="btn btn-danger btn-sm">Limpar</button>
+                    <button type="submit" class="btn bg_primary btn-sm">Filtrar</button>
+                    <button type="reset" class="btn bg_warning btn-sm">Limpar</button>
                 </div>
             </div>
         </form>
@@ -30,7 +30,7 @@
 </div>
 <div class="row m-2 principal">
     <div class="col">
-        <table class="table table-bordered">
+        <table class="table table-sm table-bordered">
             <thead>
             <tr>
                 <th>
