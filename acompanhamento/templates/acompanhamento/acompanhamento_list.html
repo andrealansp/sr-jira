@@ -2,98 +2,103 @@
 {% load static %}
 {% load django_bootstrap5 %}
 {% block content %}
-    <div class="row custom_header m-2">
-        <div class="col">
-            <h3>Lista de ocorrências com processadores</h3>
-        </div>
+<div class="row custom_header m-2">
+    <div class="col">
+        <h3>Lista de ocorrências com processadores</h3>
     </div>
-    <div class="row principal m-2">
-        <div class="col-3">
-            <input class="btn btn-sm bg_warning"  type="reset" value="Retornar"
-                   onClick="history.back()"/>
-            <a href="{% url 'acompanhamento:registrar' %}" class="btn btn-sm bg_primary">Registrar
-                Ocorrência</a>
-        </div>
+</div>
+<div class="row principal m-2">
+    <div class="col-3">
+        <input class="btn btn-sm bg_warning" type="reset" value="Retornar"
+               onClick="history.back()"/>
+        <a href="{% url 'acompanhamento:registrar' %}" class="btn btn-sm bg_primary">Registrar
+            Ocorrência</a>
+    </div>
 
-        <div class="col-9">
-            <form method="get">
-                <div class="row">
-                    <div class="col">
-                        {% bootstrap_field form.ano size="sm" show_label='skip' %}
-                    </div>
-                    <div class="col">
-                        {% bootstrap_field form.mes size="sm" show_label='skip' %}
-                    </div>
-                    <div class="col">
-                        {% bootstrap_field form.processador size="sm" show_label="skip" %}
-                    </div>
-                    <div class="col">
-                        <button type="submit" class="btn btn-sm bg_primary">Filtrar</button>
-                        <button type="reset" class="btn btn-sm bg_warning">Limpar</button>
-                    </div>
-
+    <div class="col-7">
+        <form method="get">
+            <div class="row">
+                <div class="col">
+                    {% bootstrap_field form.ano size="sm" show_label='skip' %}
                 </div>
-            </form>
-        </div>
+                <div class="col">
+                    {% bootstrap_field form.mes size="sm" show_label='skip' %}
+                </div>
+                <div class="col">
+                    {% bootstrap_field form.processador size="sm" show_label="skip" %}
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-sm bg_primary">Filtrar</button>
+                    <button type="reset" class="btn btn-sm bg_warning">Limpar</button>
+                </div>
+
+            </div>
+        </form>
     </div>
-    <div class="row principal m-2">
-        <div class="col table-responsive">
-            <nav class="nav">
-                <ul class="pagination">
-                    {% if page_obj.has_previous %}
-                        <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
-                        <li class="page-item"><a class="page-link"
-                                                 href="?page={{ page_obj.previous_page_number }}">previous</a>
-                        </li>
-                    {% endif %}
-                    <li class="page-item page-link">Page {{ page_obj.number }}
-                        of {{ page_obj.paginator.num_pages }}.
-                        {% if page_obj.has_next %}
-                            <li class="page-item"><a class="page-link"
-                                                     href="?page={{ page_obj.next_page_number }}">next</a>
-                            </li>
-                            <li class="page-item"><a class="page-link"
-                                                     href="?page={{ page_obj.paginator.num_pages }}">last
-                                &raquo;</a></li>
-                        {% endif %}
-                </ul>
-            </nav>
-            <table class="table table-sm text-nowrap table-bordered">
-                <thead>
-                <tr>
-                    <th scope="col">Ações</th>
-                    <th scope="col">Identificação</th>
-                    <th scope="col">Data Inicial</th>
-                    <th scope="col">Data Final</th>
-                    <th scope="col">Problema Apresentado</th>
-                    <th scope="col">Ação Tomada</th>
-                    <th scope="col">Status do SLA</th>
-                    <th scope="col">Duração da Ocorrência</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for a in object_list %}
-                    <tr>
-                        <td>
-                            <a href="{% url 'acompanhamento:atualizar' pk=a.id %}"
-                               class="btn btn-outline-primary btn-sm"><i class="bi bi-pen-fill"></i></a>
-                            |
-                            <a href="{% url 'acompanhamento:deletar' pk=a.id %}"
-                               class="btn btn-outline-danger btn-sm"><i class="bi bi-trash-fill"></i></a>
-                            |  <a href="{% url 'acompanhamento:detalhe' pk=a.id %}"
-                               class="btn btn-outline-warning btn-sm"><i class="bi bi-search"></i></a>
-                        </td>
-                        <td>{{ a.id_processador.identificacao }}</td>
-                        <td>{{ a.data_inicial }}</td>
-                        <td>{{ a.data_final }}</td>
-                        <td>{{ a.problema_apresentado|truncatechars:20 }}</td>
-                        <td>{{ a.acao_tomada|truncatechars:20 }}</td>
-                        <td>{{ a.get_status_sla_display }}</td>
-                        <td>{{ a.duracao }}</td>
-                    </tr>
+    <div class="col-1">
+        <a href="{% url 'acompanhamento:relatorio' %}?{{ request.GET.urlencode }}" class="btn btn-sm bg_primary">Exportar</a>
+    </div>
+</div>
+<div class="row principal m-2">
+    <div class="col table-responsive">
+        <nav class="nav">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?{{ url_parametros }}&page={{ page_obj.previous_page_number }}">Anterior</a>
+                </li>
+                {% endif %}
+
+                {% for page in page_obj.paginator.page_range %}
+                <li class="page-item {% if page_obj.number == page %}active{% endif %}">
+                    <a class="page-link" href="?{{ url_parametros }}&page={{ page }}">{{ page }}</a>
+                </li>
                 {% endfor %}
-                </tbody>
-            </table>
-        </div>
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?{{ url_parametros }}&page={{ page_obj.next_page_number }}">Próxima</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        <table class="table table-sm text-nowrap table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Ações</th>
+                <th scope="col">Identificação</th>
+                <th scope="col">Data Inicial</th>
+                <th scope="col">Data Final</th>
+                <th scope="col">Problema Apresentado</th>
+                <th scope="col">Ação Tomada</th>
+                <th scope="col">Status do SLA</th>
+                <th scope="col">Duração da Ocorrência</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for a in object_list %}
+            <tr>
+                <td>
+                    <a href="{% url 'acompanhamento:atualizar' pk=a.id %}"
+                       class="btn btn-outline-primary btn-sm"><i class="bi bi-pen-fill"></i></a>
+                    |
+                    <a href="{% url 'acompanhamento:deletar' pk=a.id %}"
+                       class="btn btn-outline-danger btn-sm"><i class="bi bi-trash-fill"></i></a>
+                    | <a href="{% url 'acompanhamento:detalhe' pk=a.id %}"
+                         class="btn btn-outline-warning btn-sm"><i class="bi bi-search"></i></a>
+                </td>
+                <td>{{ a.id_processador.identificacao }}</td>
+                <td>{{ a.data_inicial }}</td>
+                <td>{{ a.data_final }}</td>
+                <td>{{ a.problema_apresentado|truncatechars:20 }}</td>
+                <td>{{ a.acao_tomada|truncatechars:20 }}</td>
+                <td>{{ a.get_status_sla_display }}</td>
+                <td>{{ a.duracao }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
+</div>
 {% endblock %}

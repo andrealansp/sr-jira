@@ -40,6 +40,7 @@ class CameraListView(LoginRequiredMixin, ListView):
         cameras = self.get_queryset()
         context["qtd_cameras"] = cameras.count()
         context["form"] = CameraFilterForm(self.request.GET or None)
+        context["permissoes"] = self.request.user.get_all_permissions()
         return context
 
 

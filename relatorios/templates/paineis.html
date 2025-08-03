@@ -11,7 +11,7 @@
         <input class="btn bg_warning btn-sm" type="reset" value="Retornar"
                onClick="history.back()"/>
     </div>
-    <div class="col-11">
+    <div class="col-10">
         <form method="get">
             <div class="row">
                 <div class="col">
@@ -26,6 +26,65 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div class="col-1">
+        <a href="{% url 'relatorios:exportar' %}?{{ request.GET.urlencode }}" class="btn bg_primary btn-sm">Exportar</a>
+    </div>
+</div>
+<div class="row principal">
+    <div class="col">
+        <div class="nav">
+            <ul class="pagination">
+                <!-- Paginação Anterior -->
+                {% if page_obj.has_previous %}
+                {% if request.GET.ponto or request.GET.data_registro  %}
+                <li class="page-item">
+                    <a class="page-link" href="?ponto={{ request.GET.ponto }}&data_registro={{ request.GET.data_registro }}&page=1">&laquo; primeira</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?ponto={{ request.GET.ponto }}&data_registro={{ request.GET.data_registro }}&page={{ page_obj.previous_page_number }}">anterior</a>
+                </li>
+                {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo; primeira</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       href="page={{ page_obj.previous_page_number }}">anterior</a>
+                </li>
+                {% endif %}
+                {% endif %}
+                <!-- Paginação Range de páginas -->
+                <li class="page-item page-link">
+                    página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                </li>
+
+                <!-- Paginação para as próximas páginas -->
+                {% if page_obj.has_next %}
+                {% if request.GET.ponto or request.GET.data_registro  %}
+                <li class="page-item">
+                    <a class="page-link" href="?ponto={{ request.GET.ponto }}&data_registro={{ request.GET.data_registro }}&page={{ page_obj.next_page_number }}">próxima</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?ponto={{ request.GET.ponto }}&data_registro={{ request.GET.data_registro }}&&page={{ page_obj.paginator.num_pages }}">última
+                        &raquo;</a>
+                </li>
+                {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">próxima</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?page={{ page_obj.paginator.num_pages }}">última
+                        &raquo;</a>
+                </li>
+                {% endif%}
+
+                {% endif %}
+            </ul>
+        </div>
     </div>
 </div>
 <div class="row m-2 principal">
@@ -65,29 +124,6 @@
             </tr>
             {% endfor %}
             </tbody>
-            <tfoot>
-            <nav class="nav">
-                <ul class="pagination">
-                    {% if page_obj.has_previous %}
-                    <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
-                    <li class="page-item"><a class="page-link"
-                                             href="?page={{ page_obj.previous_page_number }}">previous</a>
-                    </li>
-                    {% endif %}
-                    <li class="page-item page-link">Page {{ page_obj.number }}
-                        of {{ page_obj.paginator.num_pages }}.
-                        {% if page_obj.has_next %}
-                    <li class="page-item"><a class="page-link"
-                                             href="?page={{ page_obj.next_page_number }}">next</a>
-                    </li>
-                    <li class="page-item"><a class="page-link"
-                                             href="?page={{ page_obj.paginator.num_pages }}">last
-                        &raquo;</a></li>
-                    {% endif %}
-                </ul>
-                </span>
-            </nav>
-            </tfoot>
         </table>
     </div>
 </div>

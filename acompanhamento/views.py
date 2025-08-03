@@ -59,7 +59,22 @@ class AcompanhamentoDeleteView(LoginRequiredMixin, DeleteView):
 class AcompanhamentoRelatorioView(LoginRequiredMixin, ListView):
     template_name = "acompanhamento/acompanhamento_report.html"
     model = Acompanhamento
-    queryset = Acompanhamento.objects.all()
+
+    def get_queryset(self):
+        instancia = super().get_queryset().all()
+        ano = self.request.GET.get('ano')
+        mes = self.request.GET.get('mes')
+        processador = self.request.GET.get("processador")
+
+        if ano:
+            instancia = instancia.filter(data_inicial__year=ano)
+        if mes:
+            instancia = instancia.filter(data_inicial__month=mes)
+        if processador:
+            instancia = instancia.filter(id_processador=processador)
+
+        return instancia
+
 
 
 class AcompanhamentoDetailView(LoginRequiredMixin, DetailView):

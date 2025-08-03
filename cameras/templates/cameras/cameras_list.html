@@ -35,10 +35,71 @@
         </form>
     </div>
 </div>
+
+<div class="row m-2 principal">
+    <div class="col">
+        <div class="nav">
+            <ul class="pagination">
+                <!-- Paginação Anterior -->
+                {% if page_obj.has_previous %}
+                {% if request.GET.ponto or request.GET.regiao or request.GET.serial or request.GET.nome_camera %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?ponto={{ request.GET.ponto }}&regiao={{ request.GET.regiao }}&serial={{ request.GET.serial }}&nome_camera={{ request.GET.nome_camera }}&page=1">&laquo;
+                        primeira</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?ponto={{ request.GET.ponto }}&regiao={{ request.GET.regiao }}&serial={{ request.GET.serial }}&nome_camera={{ request.GET.nome_camera }}&page={{ page_obj.previous_page_number }}">anterior</a>
+                </li>
+                {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo; primeira</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       href="page={{ page_obj.previous_page_number }}">anterior</a>
+                </li>
+                {% endif %}
+                {% endif %}
+                <!-- Paginação Range de páginas -->
+                <li class="page-item page-link">
+                    página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                </li>
+
+                <!-- Paginação para as próximas páginas -->
+                {% if page_obj.has_next %}
+                {% if request.GET.ponto or request.GET.regiao or request.GET.serial or request.GET.nome_camera %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?ponto={{ request.GET.ponto }}&regiao={{ request.GET.regiao }}&serial={{ request.GET.serial }}&nome_camera={{ request.GET.nome_camera }}&page={{ page_obj.next_page_number }}">próxima</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?ponto={{ request.GET.ponto }}&regiao={{ request.GET.regiao }}&serial={{ request.GET.serial }}&nome_camera={{ request.GET.nome_camera }}&page={{ page_obj.paginator.num_pages }}">última
+                        &raquo;</a>
+                </li>
+                {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">próxima</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?page={{ page_obj.paginator.num_pages }}">última
+                        &raquo;</a>
+                </li>
+                {% endif%}
+
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+
 <div class="row principal  m-2">
     <div class="col table-responsive">
 
-        <table class="table table-sm text-nowrap table-bordered">
+        <table class="table table-sm text-nowrap table-bordered table-striped">
             <thead>
             <tr>
                 <th colspan="11" class="table_header_information">Quantidade de câmeras: {{ qtd_cameras }}</th>
@@ -61,18 +122,23 @@
             <tbody>
             {% for c in object_list %}
             <tr>
-                <td><a class="btn btn-sm btn-outline-info d-inline-block"
-                       href="{% url "cameras:update" pk=c.id %}" target="_blank"><i
-                        class="bi bi-pen-fill"></i></a> |
-                    <a class="btn btn-sm btn-outline-danger d-inline-block"
-                       href="{% url "cameras:delete" pk=c.id %}" target="_self"><i
-                            class="bi bi-eraser-fill"></i></a> |
-                    <a class="btn btn-sm btn-outline-success d-inline-block"
-                       href="http://{{ c.ip }}:{{ c.porta }}" target="_blank"><i
-                            class="bi bi-browser-chrome"></i></a> |
-                    <a class="btn btn-sm btn-outline-success d-inline-block"
-                       href="http://{{ c.ip }}:9080" target="_blank"><i
-                            class="bi bi-arrow-clockwise"></i></a>
+
+                <td>{% if perms.cameras.change_cameras %}
+                    <a class="btn btn-sm btn-outline-info d-inline-block" href="{% url 'cameras:update' pk=c.id %}"
+                       target="_blank">
+                        <i class="bi bi-pen-fill"></i></a> |
+                    {% endif %}
+                    {% if perms.cameras.delete_cameras %}
+                    <a class="btn btn-sm btn-outline-danger d-inline-block" href="{% url 'cameras:delete' pk=c.id %}"
+                       target="_self">
+                        <i class="bi bi-eraser-fill"></i></a> |
+                    {% endif %}
+                    <a class="btn btn-sm btn-outline-success d-inline-block" href="http://{{ c.ip }}:{{ c.porta }}"
+                       target="_blank">
+                        <i class="bi bi-browser-chrome"></i></a> |
+                    <a class="btn btn-sm btn-outline-success d-inline-block" href="http://{{ c.ip }}:9080"
+                       target="_blank">
+                        <i class="bi bi-arrow-clockwise"></i></a>
                 </td>
                 <td>{{ c.ponto }}</td>
                 <td>{{ c.nome_ponto }}</td>
@@ -88,31 +154,7 @@
             </tr>
             {% endfor %}
             </tbody>
-            <tfoot>
-            <nav class="nav">
-                <ul class="pagination">
-                    {% if page_obj.has_previous %}
-                    <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
-                    <li class="page-item"><a class="page-link"
-                                             href="?page={{ page_obj.previous_page_number }}">previous</a>
-                    </li>
-                    {% endif %}
-                    <li class="page-item page-link">Page {{ page_obj.number }}
-                        of {{ page_obj.paginator.num_pages }}.
-                        {% if page_obj.has_next %}
-                    <li class="page-item"><a class="page-link"
-                                             href="?page={{ page_obj.next_page_number }}">next</a>
-                    </li>
-                    <li class="page-item"><a class="page-link"
-                                             href="?page={{ page_obj.paginator.num_pages }}">last
-                        &raquo;</a></li>
-                    {% endif %}
-                </ul>
-                </span>
-            </nav>
-            </tfoot>
         </table>
     </div>
-</div>
 </div>
 {% endblock %}

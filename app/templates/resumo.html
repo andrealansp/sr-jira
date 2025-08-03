@@ -1,58 +1,61 @@
 {% extends 'base.html' %}{% load static %} {% block content %}
 <div class="row justify-content-center">
     <div class="col-11">
-        <div class="corpo-conteudo">
+        <div class="corpo-conteudo"> <!--CONTAINER GRID-->
+            <!--CABEÇALHO PREVENTIVAS-->
             <div class="cabecalho1 custom_header">
                 <h3>Preventivas</h3>
             </div>
+            <!--PREVENTIVAS-->
             <div class="principal">
-                {% if estatistica %}
                 <div class="row justify-content-center">
-                    <div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status" id="spinner">
-                            <span class="visually-hidden">Loading...</span>
+                    <div class="col">
+                        {% if estatistica %}
+                        <div class="col d-flex justify-content-center">
+                            <div class="spinner-border" role="status" id="spinner">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                         </div>
+                        <table class="table table-sm table-bordered" id="tbl_resumo">
+                            <thead>
+                            <tr>
+                                <th colspan="2">Preventivas RMGV / DIVISA</th>
+                                <th colspan="2">Preventivas FORA DIVISA</th>
+                                <th colspan="2">Total de Preventivas</th>
+                            </tr>
+                            <tr>
+                                <th>Abertas</th>
+                                <th>Fechada</th>
+                                <th>Abertas</th>
+                                <th>Fechadas</th>
+                                <th>Chamados Abertos</th>
+                                <th>Chamados Fechados</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td id="abertosrmgv"></td>
+                                <td id="fechadosrmgv"></td>
+                                <td id="abertosforarmgv"></td>
+                                <td id="fechadosforarmgv"></td>
+                                <td id="abertos"></td>
+                                <td id="fechados"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        {% else %}
+                        <h5>Os Chamados de Preventivas não foram abertos</h5>
+                        {% endif %}
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <table class="table table-sm table-bordered" id="tbl_resumo">
-                                <thead>
-                                <tr>
-                                    <th colspan="2">Preventivas RMGV / DIVISA</th>
-                                    <th colspan="2">Preventivas FORA DIVISA</th>
-                                    <th colspan="2">Total de Preventivas</th>
-                                </tr>
-                                <tr>
-                                    <th>Abertas</th>
-                                    <th>Fechada</th>
-                                    <th>Abertas</th>
-                                    <th>Fechadas</th>
-                                    <th>Chamados Abertos</th>
-                                    <th>Chamados Fechados</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td id="abertosrmgv"></td>
-                                    <td id="fechadosrmgv"></td>
-                                    <td id="abertosforarmgv"></td>
-                                    <td id="fechadosforarmgv"></td>
-                                    <td id="abertos"></td>
-                                    <td id="fechados"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    {% else %}
-                    <h5>Os Chamados de Preventivas não foram abertos</h5>
-                    {% endif %}
                 </div>
             </div>
+            <!--CABEÇALHO CORRETIVAS-->
             <div class="cabecalho2 custom_header">
                 <h3>Corretivas</h3>
             </div>
-            <div class="rmgv text-center">
+
+            <!--CORRETIVAS RMGV-->
+            <div class="rmgv">
                 <h5>RMGV / DIVISA</h5>
                 <input
                         type="button"
@@ -60,7 +63,9 @@
                         class="btn bg_primary btn-sm"
                         onclick='window.location.href="/corretivas/rmgv"'/>
             </div>
-            <div class="fora-rmgv text-center">
+
+            <!--CORRETIVAS FORA RMGV-->
+            <div class="fora-rmgv">
                 <h5>FORA RMGV</h5>
                 <input
                         type="button"
@@ -70,7 +75,6 @@
             </div>
         </div>
     </div>
-</div>
-<script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
-<script src="{% static 'scripts/resumo.js' %}"></script>
-{% endblock %}
+    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="{% static 'scripts/resumo.js' %}"></script>
+    {% endblock %}
