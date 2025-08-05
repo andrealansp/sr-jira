@@ -75,8 +75,6 @@ class AcompanhamentoRelatorioView(LoginRequiredMixin, ListView):
 
         return instancia
 
-
-
 class AcompanhamentoDetailView(LoginRequiredMixin, DetailView):
     template_name = "acompanhamento/acompanhamento_detail.html"
     model = Acompanhamento
