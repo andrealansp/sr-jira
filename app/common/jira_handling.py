@@ -1,6 +1,6 @@
 import os
 from pprint import pprint
-from typing import cast
+from typing import cast, Dict, List
 
 import jirapt
 import pandas as pd
@@ -19,7 +19,7 @@ class JiraHandling:
         self.__password = password
         self.__fields = fields
         self.__jira = JIRA(
-            server=os.getenv("BASE_URL"), basic_auth=(self.__username, self.__password)
+            server=self.__url, basic_auth=(self.__username, self.__password),async_=True
         )
 
     def set_jql(self, escolha: str, dt_inicial: str = None, dt_final: str = None):
@@ -64,12 +64,12 @@ class JiraHandling:
 
             case "perkons-preventivas-pcls-mes":
                 self.__jql = """assignee in (currentUser()) AND project = CIES And created >= startOfMonth() 
-                AND created <= now() AND "Request Type" IN ("PREVENTIVA PONTO DE COLETA (CIES)")"""
+                AND created <= endOfMonth() AND "Request Type" IN ("PREVENTIVA PONTO DE COLETA (CIES)")"""
 
     def __repr__(self):
         return f"{self.__jql, self.__url, self.__username, self.__jql}"
 
-    def search(self, fields):
+    def search(self, fields) -> ResultList[Issue] | None:
         """
         :param fields: Lista de Campos para retorno do json
         :return: ResultList (Tipo personalizado da classe Jira)
@@ -79,13 +79,27 @@ class JiraHandling:
                 ResultList[Issue],
                 jirapt.search_issues(self.__jira, self.__jql, 4, fields=fields),
             )
+            print(issues.__dict__)
             return issues
         except Exception as e:
             print(e.__str__())
 
-    def getissues(self):
+    def get_all_issues(self, fields='*all') -> list[Issue] | None:
+        """
+        """
+        issues_list = []
         try:
-            issues = self.search(self.__fields)
+            for issue in self.__jira.enhanced_search_issues(self.__jql, fields=fields, maxResults=False, ):
+                issues_list.append(issue)
+        except Exception as e:
+            print(f"Ocorreu um erro durante a busca: {e}")
+
+        return issues_list
+
+    def getissues(self) -> Dict[str, Issue] | None:
+        """return: dict{chamado_key: {dict_issue}}"""
+        try:
+            issues = self.get_all_issues(self.__fields)
             dict_chamados = {}
             for issue in issues:
                 dict_chamados[issue.key] = issue
@@ -143,7 +157,6 @@ class JiraHandling:
                 "CHAMADOS_ABERTOS": len(df.loc[df["status"] == "Work in progress"]),
                 "TOTAL_DE_CHAMADOS": len(df["status"]),
             }
-
             return dados_estatisticos
         else:
             return None
@@ -242,10 +255,13 @@ class JiraHandling:
             return None
 
 
-if __name__ == "__main__":
-    jira = JiraHandling(os.environ["URL"], os.environ["USER_JIRA"], os.environ["API_TOKEN"])
-    jira.set_jql("perkons-corretivas-rmgv","2025-07-01", dt_final="2025-08-01")
-    chamados = jira.get_statistic_corrective()
-    for chamado in chamados:
-        print(chamado)
-
+# if __name__ == "__main__":
+#     jira = JiraHandling(os.environ["BASE_URL"], os.environ["USER_JIRA"], os.environ["API_TOKEN"])
+#     jira.set_jql("perkons-preventivas-pcls", dt_inicial="2025-01-08", dt_final="2025-12-31")
+#     chamados2 = jira.get_all_issues(os.getenv("CAMPOS_PCLS"))
+#     print(len(chamados2))
+#     for chamado in chamados2:
+#         pprint(chamado.fields.customfield_10117)
+#         pprint(chamado.fields.customfield_10118.content[0].content[0].text)
+#         exit()
+#

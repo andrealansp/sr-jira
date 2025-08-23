@@ -69,7 +69,7 @@ class RmgvListView(LoginRequiredMixin, TemplateView):
 
     def get_tickets(self):
         jira_context = JiraHandling(
-            os.getenv("URL"),
+            os.getenv("BASE_URL"),
             os.getenv("USER_JIRA"),
             os.getenv("API_TOKEN"),
             os.getenv("CAMPOS_CORRETIVAS"),
@@ -79,7 +79,7 @@ class RmgvListView(LoginRequiredMixin, TemplateView):
 
     def get_statistics_corrective(self):
         jira_context = JiraHandling(
-            os.getenv("URL"),
+            os.getenv("BASE_URL"),
             os.getenv("USER_JIRA"),
             os.getenv("API_TOKEN"),
             os.getenv("CAMPOS_CORRETIVAS"),
@@ -102,7 +102,7 @@ class ForaDivisaListView(LoginRequiredMixin, TemplateView):
 
     def get_tickets(self):
         jira_context = JiraHandling(
-            os.getenv("URL"),
+            os.getenv("BASE_URL"),
             os.getenv("USER_JIRA"),
             os.getenv("API_TOKEN"),
             os.getenv("CAMPOS_CORRETIVAS"),
@@ -112,7 +112,7 @@ class ForaDivisaListView(LoginRequiredMixin, TemplateView):
 
     def get_statistics_corrective(self):
         jira_context = JiraHandling(
-            os.getenv("URL"),
+            os.getenv("BASE_URL"),
             os.getenv("USER_JIRA"),
             os.getenv("API_TOKEN"),
             os.getenv("CAMPOS_CORRETIVAS"),
@@ -126,7 +126,7 @@ class ExportRmgvView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         jira_context = JiraHandling(
-            os.getenv("URL"),
+            os.getenv("BASE_URL"),
             os.getenv("USER_JIRA"),
             os.getenv("API_TOKEN"),
             os.getenv("CAMPOS_CORRETIVAS"),
@@ -165,7 +165,7 @@ class ExportForaDivisa(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         jira_context = JiraHandling(
-            os.getenv("URL"),
+            os.getenv("BASE_URL"),
             os.getenv("USER_JIRA"),
             os.getenv("API_TOKEN"),
             os.getenv("CAMPOS_CORRETIVAS"),

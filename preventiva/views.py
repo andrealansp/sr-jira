@@ -24,7 +24,7 @@ class PreventivasView(LoginRequiredMixin, TemplateView):
 
     def get_statistics_data(self):
         jira_context = JiraHandling(
-            os.getenv("URL"),
+            os.getenv("BASE_URL"),
             os.getenv("USER_JIRA"),
             os.getenv("API_TOKEN"),
             os.getenv("CAMPOS_PCLS"),
@@ -63,7 +63,7 @@ class PerkonsRelatorioTemplateView(TemplateView):
 
     def get_issues_jira(self):
         jira_context = JiraHandling(
-            os.getenv("URL"),
+            os.getenv("BASE_URL"),
             os.getenv("USER_JIRA"),
             os.getenv("API_TOKEN"),
             os.getenv("CAMPOS_PCLS"),
@@ -102,7 +102,7 @@ class VelsisRelatorioTemplateView(TemplateView):
 
     def get_issues_jira(self):
         jira_context = JiraHandling(
-            os.getenv("URL"),
+            os.getenv("BASE_URL"),
             os.getenv("USER_JIRA"),
             os.getenv("API_TOKEN"),
             os.getenv("CAMPOS_VELSIS"),
@@ -139,7 +139,7 @@ class SalasRelatorioTemplateView(TemplateView):
 
     def get_issues_jira(self):
         jira_context = JiraHandling(
-            os.getenv("URL"),
+            os.getenv("BASE_URL"),
             os.getenv("USER_JIRA"),
             os.getenv("API_TOKEN"),
             os.getenv("CAMPOS_SALAS"),
@@ -153,7 +153,7 @@ class EstatisticasPreventivasAPIView(View):
     @staticmethod
     def get_statistics_data():
         jira_context = JiraHandling(
-            os.getenv("URL"),
+            os.getenv("BASE_URL"),
             os.getenv("USER_JIRA"),
             os.getenv("API_TOKEN"),
             os.getenv("CAMPOS_PCLS"),

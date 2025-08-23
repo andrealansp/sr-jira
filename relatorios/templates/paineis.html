@@ -21,6 +21,9 @@
                     {% bootstrap_field form.data_registro size="sm" show_label='skip' %}
                 </div>
                 <div class="col">
+                    {% bootstrap_field form.horario size="sm" show_label='skip' %}
+                </div>
+                <div class="col">
                     <button type="submit" class="btn bg_primary btn-sm">Filtrar</button>
                     <button type="reset" class="btn bg_warning btn-sm">Limpar</button>
                 </div>
@@ -31,7 +34,7 @@
         <a href="{% url 'relatorios:exportar' %}?{{ request.GET.urlencode }}" class="btn bg_primary btn-sm">Exportar</a>
     </div>
 </div>
-<div class="row principal">
+<div class="row m-2 principal">
     <div class="col">
         <div class="nav">
             <ul class="pagination">

@@ -29,11 +29,14 @@ class RelatorioPaineisView(LoginRequiredMixin,ListView):
         instancia = super().get_queryset().all()
         ponto = self.request.GET.get("ponto")
         data_registro = self.request.GET.get("data_registro")
+        horario = self.request.GET.get("horario")
 
         if ponto:
             instancia = instancia.filter(ponto=ponto)
         if data_registro:
             instancia = instancia.filter(data_registro__date=data_registro)
+        if horario:
+            instancia = instancia.filter(data_registro__hour=horario.split(":")[0])
         return instancia
 
 class ExportListView(LoginRequiredMixin,View):

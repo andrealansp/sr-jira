@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
             fechamento_fora_rmgv.innerHTML = response.data["FECHADOS_FORA_DIVISA"];
             abertos.innerHTML = response.data["CHAMADOS_ABERTOS"];
             fechados.innerHTML = response.data["FECHADOS_RMGV"] + response.data["FECHADOS_FORA_DIVISA"];
+        }).catch((error)=>{
+        console.log(error)
         }).finally(()=> {
         document.getElementById('spinner').style.display = 'none';
         document.getElementById('tbl_resumo').style.display = 'table';
