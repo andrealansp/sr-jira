@@ -1,7 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect
+from logging import getLogger
 
+
+logger = getLogger("accounts")
 
 def login_view(request):
     if request.method == 'POST':
@@ -10,6 +13,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            logger.info(f'{user} logged in')
             return redirect('preventivas')
         else:
             login_form = AuthenticationForm()

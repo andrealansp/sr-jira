@@ -30,8 +30,9 @@ body {
 .image_area {
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
-  background-image:url("../images/login1.jpg");
-  background-size: cover;
+  background-image:url("../images/logo1.png");
+  background-size:contain;
+  background-repeat:no-repeat;
   border: #0054A2 3px solid;
 }
 ul{

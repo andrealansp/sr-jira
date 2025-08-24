@@ -1,14 +1,12 @@
-import os
-from pprint import pprint
-from typing import cast, Dict, List
+from typing import Dict
 
-import jirapt
 import pandas as pd
 from dotenv import load_dotenv
 from jira import JIRA
-from jira.client import ResultList
 from jira.resources import Issue
+import logging
 
+logger = logging.getLogger("preventivas")
 load_dotenv()
 
 class JiraHandling:
@@ -22,7 +20,7 @@ class JiraHandling:
             server=self.__url, basic_auth=(self.__username, self.__password),async_=True
         )
 
-    def set_jql(self, escolha: str, dt_inicial: str = None, dt_final: str = None):
+    def set_jql(self, escolha: str, dt_inicial: str = None, dt_final: str = None) -> None:
         """
         Método para definir uma variável de classe para ser utilizada pelo método search()
 
@@ -69,21 +67,6 @@ class JiraHandling:
     def __repr__(self):
         return f"{self.__jql, self.__url, self.__username, self.__jql}"
 
-    def search(self, fields) -> ResultList[Issue] | None:
-        """
-        :param fields: Lista de Campos para retorno do json
-        :return: ResultList (Tipo personalizado da classe Jira)
-        """
-        try:
-            issues = cast(
-                ResultList[Issue],
-                jirapt.search_issues(self.__jira, self.__jql, 4, fields=fields),
-            )
-            print(issues.__dict__)
-            return issues
-        except Exception as e:
-            print(e.__str__())
-
     def get_all_issues(self, fields='*all') -> list[Issue] | None:
         """
         """
@@ -111,12 +94,12 @@ class JiraHandling:
         fields = self.__jira.fields()
         return fields
 
-    def getattachements(self, chave):
+    def getattachements(self, chave) -> Issue:
         issue = self.__jira
         attachment = issue.issue(chave, fields="attachment")
         return attachment
 
-    def get_statistic_preventive(self):
+    def get_statistic_preventive(self) -> dict | None:
         issues = self.getissues()
         list_preventive: list = []
         for issue in issues.values():
@@ -157,11 +140,12 @@ class JiraHandling:
                 "CHAMADOS_ABERTOS": len(df.loc[df["status"] == "Work in progress"]),
                 "TOTAL_DE_CHAMADOS": len(df["status"]),
             }
+            logger.debug(dados_estatisticos)
             return dados_estatisticos
         else:
             return None
 
-    def get_statistic_corrective(self):
+    def get_statistic_corrective(self) -> dict | None:
         issues = self.getissues()
         list_corrective: list = []
         for corrective in issues.values():
@@ -256,12 +240,13 @@ class JiraHandling:
 
 
 # if __name__ == "__main__":
+#     import os
 #     jira = JiraHandling(os.environ["BASE_URL"], os.environ["USER_JIRA"], os.environ["API_TOKEN"])
 #     jira.set_jql("perkons-preventivas-pcls", dt_inicial="2025-01-08", dt_final="2025-12-31")
 #     chamados2 = jira.get_all_issues(os.getenv("CAMPOS_PCLS"))
 #     print(len(chamados2))
 #     for chamado in chamados2:
-#         pprint(chamado.fields.customfield_10117)
-#         pprint(chamado.fields.customfield_10118.content[0].content[0].text)
+#         print(chamado.fields.customfield_10117)
+#         print(chamado.fields.customfield_10118.content[0].content[0].text)
 #         exit()
-#
+

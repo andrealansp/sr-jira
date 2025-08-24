@@ -17,15 +17,11 @@
         <div class="row justify-content-center">
             <div class="col-6">
                 <div class="row login_area">
-                    <div class="col-6 image_area"></div>
+                    <div class="col-6 image_area" id="imagelogin"></div>
                     <div class="col-6 login_form">
-                        <div class="row justify-content-center">
-                            <div class="col-4">
-                                <img src="{% static "images/logo1.png" %}" class="img-fluid" alt="">
-                            </div>
-                        </div>
+                        <div class="row m-3 text-center" ><h5>REGIONAL ES</h5></div>
                         <div class="row m-3">
-                          {% bootstrap_form form %}
+                            {% bootstrap_form form %}
                         </div>
                         <div class="row m-3">
                             <div class="col">
@@ -41,5 +37,16 @@
     </form>
 </div>
 {% bootstrap_javascript %}
+<script language="JavaScript">
+    document.addEventListener("DOMContentLoaded", function () {
+        login_image = document.getElementById('imagelogin');
+        imagem = Math.floor(Math.random() * 5) + 1;
+        url = `url(../../static/images/${imagem}.jpg)`
+        login_image.style.backgroundImage = url;
+        login_image.style.backgroundRepeat = "no-repeat"; // Prevents image repetition
+        login_image.style.backgroundSize = "cover";      // Scales image to cover the element
+        login_image.style.backgroundPosition = "center"; // Centers the image
+    })
+</script>
 </body>
 </html>

@@ -10,5 +10,5 @@ urlpatterns = [
     path('atualizar/<pk>', views.AcompanhamentoUpdateView.as_view(), name="atualizar"),
     path('deletar/<pk>', views.AcompanhamentoDeleteView.as_view(), name="deletar"),
     path('detalhe/<pk>', views.AcompanhamentoDetailView.as_view(), name="detalhe"),
-    path('exportar>', views.AcompanhamentoRelatorioView.as_view(), name="relatorio"),
+    path('exportar', views.AcompanhamentoRelatorioView.as_view(), name="relatorio"),
 ]
