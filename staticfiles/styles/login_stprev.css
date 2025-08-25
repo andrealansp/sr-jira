@@ -11,22 +11,31 @@ body {
   align-items: center;
   justify-content: start;
   min-height: 100vh;
-  background-image:url("../images/jira.jpg");
+  background-image: url("../images/background.png");
   background-size: cover;
 }
 
-.login_placeholder{
-  margin-top: 100px;
-  width: auto;
-  height: auto;
-  background-color:rgba(19, 29, 62, 0.5);  
-  border-radius: 10px;
+.login_area{
+  border-radius:10px;
+  background-color: white;
   border: 1px solid white;
-  box-shadow: 1px 1px 2px #aaa, -1px -1px 2px #fff;
-  border-radius: 10px;
+  padding: 10px;
+  height: 60vh;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  }
+.login_form{
+  width: 50%;
+  height: 100%;
 }
-
-.message{
-  color:white;
-  width: 50vw;
+.image_area {
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  background-image:url("../images/logo1.png");
+  background-size:contain;
+  background-repeat:no-repeat;
+  border: #0054A2 3px solid;
+}
+ul{
+  font-family: sans-serif;
+  font-size: smaller;
 }

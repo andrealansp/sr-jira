@@ -1,5 +1,5 @@
 body p {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     box-sizing: border-box;
 }
@@ -23,4 +23,7 @@ color: #483285;
     width: auto;
     padding: 2%;
     border: black solid 1px;
+}
+.bg-table{
+background-color:#eee;!important
 }
