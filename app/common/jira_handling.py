@@ -239,14 +239,14 @@ class JiraHandling:
             return None
 
 
-# if __name__ == "__main__":
-#     import os
-#     jira = JiraHandling(os.environ["BASE_URL"], os.environ["USER_JIRA"], os.environ["API_TOKEN"])
-#     jira.set_jql("perkons-preventivas-pcls", dt_inicial="2025-01-08", dt_final="2025-12-31")
-#     chamados2 = jira.get_all_issues(os.getenv("CAMPOS_PCLS"))
-#     print(len(chamados2))
-#     for chamado in chamados2:
-#         print(chamado.fields.customfield_10117)
-#         print(chamado.fields.customfield_10118.content[0].content[0].text)
-#         exit()
+#if __name__ == "__main__":
+#    import os
+#    jira = JiraHandling(os.environ["BASE_URL"], os.environ["USER_JIRA"], os.environ["API_TOKEN"])
+#    jira.set_jql("perkons-preventivas-pcls", dt_inicial="2025-01-08", dt_final="2025-12-31")
+#    chamados2 = jira.get_all_issues(os.getenv("CAMPOS_PCLS"))
+#    print(len(chamados2))
+#    for chamado in chamados2:
+#        print(chamado.fields.customfield_10117)
+#        print(chamado.fields.customfield_10118)
+#        exit()
 
