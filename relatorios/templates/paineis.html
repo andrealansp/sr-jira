@@ -11,6 +11,7 @@
         <input class="btn bg_warning btn-sm" type="reset" value="Retornar"
                onClick="history.back()"/>
     </div>
+    {% if form %}
     <div class="col-7">
         <form method="get">
             <div class="row">
@@ -30,6 +31,7 @@
             </div>
         </form>
     </div>
+    {% endif %}
     <div class="col-3">
         <a href="{% url 'relatorios:ultimas_coletas' %}" class="btn bg_primary btn-sm">Ultimas Coletas</a>
         <a href="{% url 'relatorios:exportar' %}?{{ request.GET.urlencode }}"

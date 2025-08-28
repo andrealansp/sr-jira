@@ -45,11 +45,6 @@ class RelatorioPainelLastData(LoginRequiredMixin,ListView):
     context_object_name = 'paineis'
     paginate_by = 150
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['form'] = PaineisFilterForm(self.request.GET or None)
-        return context
-
     def get_queryset(self):
         instancia = super().get_queryset().all()
         instancia = instancia.order_by('ponto','-data_registro').distinct("ponto")
