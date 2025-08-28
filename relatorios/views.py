@@ -39,6 +39,23 @@ class RelatorioPaineisView(LoginRequiredMixin,ListView):
             instancia = instancia.filter(data_registro__hour=horario.split(":")[0])
         return instancia
 
+class RelatorioPainelLastData(LoginRequiredMixin,ListView):
+    template_name = 'paineis.html'
+    model = Painel
+    context_object_name = 'paineis'
+    paginate_by = 150
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = PaineisFilterForm(self.request.GET or None)
+        return context
+
+    def get_queryset(self):
+        instancia = super().get_queryset().all()
+        instancia = instancia.order_by('ponto','-data_registro').distinct("ponto")
+        return instancia
+
+
 class ExportListView(LoginRequiredMixin,View):
 
     def get(self, request, *args, **kwargs):

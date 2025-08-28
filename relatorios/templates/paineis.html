@@ -7,11 +7,11 @@
     </div>
 </div>
 <div class="row m-2 principal">
-    <div class="col-1">
+    <div class="col-2">
         <input class="btn bg_warning btn-sm" type="reset" value="Retornar"
                onClick="history.back()"/>
     </div>
-    <div class="col-10">
+    <div class="col-7">
         <form method="get">
             <div class="row">
                 <div class="col">
@@ -30,8 +30,10 @@
             </div>
         </form>
     </div>
-    <div class="col-1">
-        <a href="{% url 'relatorios:exportar' %}?{{ request.GET.urlencode }}" class="btn bg_primary btn-sm">Exportar</a>
+    <div class="col-3">
+        <a href="{% url 'relatorios:ultimas_coletas' %}" class="btn bg_primary btn-sm">Ultimas Coletas</a>
+        <a href="{% url 'relatorios:exportar' %}?{{ request.GET.urlencode }}"
+           class="btn bg_primary btn-sm">Exportar</a>
     </div>
 </div>
 <div class="row m-2 principal">
@@ -40,9 +42,11 @@
             <ul class="pagination">
                 <!-- Paginação Anterior -->
                 {% if page_obj.has_previous %}
-                {% if request.GET.ponto or request.GET.data_registro  %}
+                {% if request.GET.ponto or request.GET.data_registro %}
                 <li class="page-item">
-                    <a class="page-link" href="?ponto={{ request.GET.ponto }}&data_registro={{ request.GET.data_registro }}&page=1">&laquo; primeira</a>
+                    <a class="page-link"
+                       href="?ponto={{ request.GET.ponto }}&data_registro={{ request.GET.data_registro }}&page=1">&laquo;
+                        primeira</a>
                 </li>
                 <li class="page-item">
                     <a class="page-link"
@@ -65,9 +69,10 @@
 
                 <!-- Paginação para as próximas páginas -->
                 {% if page_obj.has_next %}
-                {% if request.GET.ponto or request.GET.data_registro  %}
+                {% if request.GET.ponto or request.GET.data_registro %}
                 <li class="page-item">
-                    <a class="page-link" href="?ponto={{ request.GET.ponto }}&data_registro={{ request.GET.data_registro }}&page={{ page_obj.next_page_number }}">próxima</a>
+                    <a class="page-link"
+                       href="?ponto={{ request.GET.ponto }}&data_registro={{ request.GET.data_registro }}&page={{ page_obj.next_page_number }}">próxima</a>
                 </li>
                 <li class="page-item">
                     <a class="page-link"
